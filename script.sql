@@ -40,14 +40,30 @@ CREATE TABLE itemWillBeInMenu (
   FOREIGN KEY (itemId) REFERENCES item(itemId)
 );
 
+
+CREATE EVENT updateDailyMenuItemsEvent
+ON SCHEDULE
+  EVERY 1 DAY
+  STARTS (TIMESTAMP(CURRENT_DATE) + INTERVAL 1 DAY)
+DO
+  update item natural join itemWillBeInMenu set isInMenu = true
+  where date = CURRENT_DATE();
+
+
+
 insert into restaurant values (1, "purkynka", "brno", "purkynova", 61200, TIME("13:10:11"));
 insert into item values (101, "spaghetti", "Delicious spaghetti", "/img/spaghetti.jpg", 3, "meal", true, true, false);
 
 insert into item values (102, "lasagne", "lasagne decrip", "/img/lasagne.jpg", 6, "dailyMenu", false, false, false);
+insert into item values (103, "chilli con carne", "lasagne decrip", "/img/lasagne.jpg", 6, "dailyMenu", false, false, false);
+insert into item values (104, "pizza", "lasagne decrip", "/img/lasagne.jpg", 6, "dailyMenu", false, false, false);
 
 insert into restaurantHasItem values (1, 101);
 insert into restaurantHasItem values (1, 102);
-insert into itemWillBeInMenu values (102, DATE("2017-07-23"));
+insert into itemWillBeInMenu values (102, DATE("2019-11-10"));
+insert into itemWillBeInMenu values (103, DATE("2019-11-11"));
+insert into itemWillBeInMenu values (104, DATE("2019-11-12"));
+
 
 select * from restaurant;
 select * from item;
