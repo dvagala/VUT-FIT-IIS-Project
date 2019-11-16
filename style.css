@@ -1,0 +1,13 @@
+*{
+    background-color:#212121;color:#EEFFFF;
+    box-sizing: border-box;
+}
+#restaurantCards{
+    display: flex;
+    flex-wrap: wrap;
+}
+#restaurantCard{
+    border: 2px solid white;
+    padding: 8px;
+    margin: 5px;
+}

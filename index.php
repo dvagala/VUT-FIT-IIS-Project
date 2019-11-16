@@ -1,7 +1,89 @@
+<link rel="stylesheet" type="text/css" href="style.css">
+
+
+<div id="restaurantCards">
+    <div id="restaurantCard">
+        <h3>Purynka</h3>
+        <p>Sweet uni canteen</p>
+        <p>Brno</p>
+        <p>10:00 - 16:00</p>
+        <button>Enter</button>
+    </div>
+    <div id="restaurantCard">
+        <h3>Stary pivovar</h3>
+        <p>Sweet uni canteen</p>
+        <p>10:00 - 16:00</p>
+        <button>Enter</button>
+    </div>
+    <div id="restaurantCard">
+        <h3>Stary pivovar</h3>
+        <p>Sweet uni canteen</p>
+        <p>10:00 - 16:00</p>
+        <button>Enter</button>
+    </div>
+    <div id="restaurantCard">
+        <h3>Stary pivovar</h3>
+        <p>Sweet uni canteen</p>
+        <p>10:00 - 16:00</p>
+        <button>Enter</button>
+    </div>
+    <div id="restaurantCard">
+        <h3>Stary pivovar</h3>
+        <p>Sweet uni canteen</p>
+        <p>10:00 - 16:00</p>
+        <button>Enter</button>
+    </div>
+    <div id="restaurantCard">
+        <h3>Stary pivovar</h3>
+        <p>Sweet uni canteen</p>
+        <p>10:00 - 16:00</p>
+        <button>Enter</button>
+    </div>
+    <div id="restaurantCard">
+        <h3>Purynka</h3>
+        <p>Sweet uni canteen</p>
+        <p>10:00 - 16:00</p>
+        <button>Enter</button>
+    </div>
+    <div id="restaurantCard">
+        <h3>Stary pivovar</h3>
+        <p>Sweet uni canteen</p>
+        <p>10:00 - 16:00</p>
+        <button>Enter</button>
+    </div>
+    <div id="restaurantCard">
+        <h3>Stary pivovar</h3>
+        <p>Sweet uni canteen</p>
+        <p>10:00 - 16:00</p>
+        <button>Enter</button>
+    </div>
+    <div id="restaurantCard">
+        <h3>Stary pivovar</h3>
+        <p>Sweet uni canteen</p>
+        <p>10:00 - 16:00</p>
+        <button>Enter</button>
+    </div>
+    <div id="restaurantCard">
+        <h3>Stary pivovar</h3>
+        <p>Sweet uni canteen</p>
+        <p>10:00 - 16:00</p>
+        <button>Enter</button>
+    </div>
+    <div id="restaurantCard">
+        <h3>Stary pivovar</h3>
+        <p>Sweet uni canteen</p>
+        <p>10:00 - 16:00</p>
+        <button>Enter</button>
+    </div>    
+</div>
+
+
 <?php
 $servername = "localhost";
 $username = "iisUser";
-$password = "L3tmeinn";
+$password = "iisPassword";
+$dbName = "iisDb";
+
 
 class Restaurant{
     public $restaurantId;
@@ -12,29 +94,37 @@ class Restaurant{
     public $ordersClosure;
 }
 
+
 try {
-    $pdo = new PDO("mysql:host=$servername;dbname=iisDb", $username, $password);
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
     // set the PDO error mode to exception
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connected successfully"."<br>";
 
-    $dbName = 1;
+    $myvar = 'restaurant';
 
     // $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ? AND status=?');
     // $stmt->execute([$email, $status]);
     // $user = $stmt->fetch();
 
     // $stmt = $pdo->query('SELECT name FROM restaurant');
-    $stmt = $pdo->prepare('SELECT * FROM restaurant');
-    $stmt->execute([$dbName]);
+    // $stmt = $pdo->prepare('SELECT * FROM restaurant');
+    // $stmt->execute([$myvar]);
 
     // PDO::FETCH_ASSOC
 
-    $row = $stmt->fetch(PDO::FETCH_CLASS);
-    // print_r($row);
+    // $row = $stmt->fetch();
 
-    echo "<br><br>";
-    echo 4;
+    $data = $pdo->query("SELECT name, town FROM restaurant")->fetchAll(PDO::FETCH_ASSOC);
+
+    // print_r($data);
+
+    foreach ($data as $restaurant){
+        print_r($restaurant);
+    }
+
+
+    // echo "<br><br>";
 
     // while ($row = $stmt->fetch())
     // {

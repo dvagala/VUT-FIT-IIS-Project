@@ -7,10 +7,14 @@ drop table if exists person;
 drop table if exists `order`;
 drop event if exists updateDailyMenuItemsEvent;
 
+-- CREATE USER 'iisUser'@'%' IDENTIFIED BY 'iisPassword';
+-- GRANT ALL PRIVILEGES ON iisDb. * TO 'iisUser'@'%';
+-- FLUSH PRIVILEGES;
 
 CREATE TABLE restaurant (
   restaurantId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   name VARCHAR(50),
+  description VARCHAR(50),
   town VARCHAR(50),
   street VARCHAR(50),
   zip INT,
@@ -87,8 +91,8 @@ CREATE TABLE orderHasItem (
 );
 
 
-insert into restaurant values (1, "purkynka", "brno", "purkynova", 61200, 0944456789, TIME("13:10:11"), TIME("13:10:11"));
-insert into restaurant values (2, "skacelka", "brno", "purkynova", 61200, 0944456789, TIME("13:10:11"), TIME("13:10:11"));
+insert into restaurant values (1, "purkynka", "some description", "brno", "purkynova", 61200, 0944456789, TIME("13:10:11"), TIME("13:10:11"));
+insert into restaurant values (2, "skacelka", "some description", "brno", "purkynova", 61200, 0944456789, TIME("13:10:11"), TIME("13:10:11"));
 
 insert into item values (101, "spaghetti", "Delicious spaghetti", "/img/spaghetti.jpg", 3, "meal", true, true, false);
 
