@@ -1,8 +1,8 @@
 drop table if exists restaurantHasItem;
 drop table if exists itemWillBeInMenu;
+drop table if exists orderHasItem;
 drop table if exists restaurant;
 drop table if exists item;
-drop table if exists orderHasItem;
 drop table if exists person;
 drop table if exists `order`;
 drop event if exists updateDailyMenuItemsEvent;
@@ -20,7 +20,7 @@ CREATE TABLE restaurant (
   zip INT,
   phoneNumber INT,
   openingTime TIME,
-  ordersClosure TIME
+  closureTime TIME
 );
 
 CREATE TABLE item (
@@ -91,8 +91,9 @@ CREATE TABLE orderHasItem (
 );
 
 
-insert into restaurant values (1, "purkynka", "some description", "brno", "purkynova", 61200, 0944456789, TIME("13:10:11"), TIME("13:10:11"));
-insert into restaurant values (2, "skacelka", "some description", "brno", "purkynova", 61200, 0944456789, TIME("13:10:11"), TIME("13:10:11"));
+insert into restaurant values (1, "purkynka", "some description", "brno", "purkynova", 61200, 0944456789, TIME("08:00:00"), TIME("18:00:00"));
+insert into restaurant values (2, "skacelka", "some description", "brno", "purkynova", 61200, 0944456789, TIME("09:00:00"), TIME("21:30:00"));
+insert into restaurant values (3, "forkys", "some description", "Trnava", "purkynova", 61200, 0944456789, TIME("07:00:00"), TIME("17:00:00"));
 
 insert into item values (101, "spaghetti", "Delicious spaghetti", "/img/spaghetti.jpg", 3, "meal", true, true, false);
 
@@ -124,3 +125,5 @@ select * from itemWillBeInMenu;
 select * from orderHasItem;
 select * from `order`;
 select * from person;
+
+-- SELECT TIME_FORMAT(`openingTime`, '%H:%i') FROM `restaurant`;
