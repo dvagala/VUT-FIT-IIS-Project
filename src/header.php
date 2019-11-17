@@ -14,14 +14,15 @@
         <div class="main-header">
             <p>Food delivery</p>
             <div class="header-nav">
-                <a class="login-nav-button" href="#">Login</a>
+                <a class="login-nav-link" href="#">Login</a>
                 <a href="#">Sign up</a>
-                <a href="#">Menu</a>
+                <a class="menu-nav-link" href="#">Menu</a>
+            </div>
                 <div class="login-dropdown">
                     <form class="login-form" action="" method="post">
                         <input type="text" placeholder="Email">
-                        <input type="text" placeholder="Password">
-                        <button>Login</button>
+                        <input type="password" placeholder="Password">
+                        <button class="login-form-button">Login</button>
                     </form>
                 </div>
                 <div class="menu-dropdown">
@@ -33,46 +34,32 @@
                         <li><a href="">Logout</a></li>
                     </ul>
                 </div>
-            </div>
         </div>
     </div>
 </body>
 
 <script>
 
-// var loginDropDown = document.querySelector(".login-dropdown");
-// var menuDropDown = document.querySelector(".menu-dropdown");
-// loginDropDown.style.display = "none";
-// menuDropDown.style.display = "none";
-
-
-// function loginDropdownClicked(){
-//     if(loginDropDown.style.display == "none"){
-//         loginDropDown.style.display = "block";
-//         menuDropDown.style.display = "none";
-//     }else{
-//         loginDropDown.style.display = "none";
-//     }
-// }
-
-// function menuDropdownClicked(){
-//     if(menuDropDown.style.display == "none"){
-//         menuDropDown.style.display = "block";
-//         loginDropDown.style.display = "none";
-//     }else{
-//         menuDropDown.style.display = "none";
-//     }
-// }
 
 $(function(){
-    $(".login-nav-button").click(function(){
+    $(".login-nav-link").click(function(){
         $(".login-dropdown").fadeToggle(200);    
     });
     
+    $(".menu-nav-link").click(function(){
+        $(".menu-dropdown").fadeToggle(200);    
+    });
+
     $(document).mouseup(function(e){ 
-        if($(e.target).closest(".login-nav-button").length === 0){
+        if($(e.target).closest(".login-nav-link").length === 0){
             if ($(e.target).closest(".login-dropdown").length === 0){ 
                 $(".login-dropdown").fadeOut(200); 
+            } 
+        }
+        
+        if($(e.target).closest(".menu-nav-link").length === 0){
+            if ($(e.target).closest(".menu-dropdown").length === 0){ 
+                $(".menu-dropdown").fadeOut(200); 
             } 
         }
     }); 
