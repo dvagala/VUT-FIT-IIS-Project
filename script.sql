@@ -94,6 +94,9 @@ CREATE TABLE orderHasItem (
 insert into restaurant values (1, "purkynka", "some description", "brno", "purkynova", 61200, 0944456789, TIME("08:00:00"), TIME("18:00:00"));
 insert into restaurant values (2, "skacelka", "some description", "brno", "purkynova", 61200, 0944456789, TIME("09:00:00"), TIME("21:30:00"));
 insert into restaurant values (3, "forkys", "some description", "Trnava", "purkynova", 61200, 0944456789, TIME("07:00:00"), TIME("17:00:00"));
+insert into restaurant values (4, "forkysq", "some description", "Trnava", "purkynova", 61200, 0944456789, TIME("07:00:00"), TIME("17:00:00"));
+insert into restaurant values (5, "forkysw", "some description", "Trnava", "purkynova", 61200, 0944456789, TIME("07:00:00"), TIME("17:00:00"));
+insert into restaurant values (6, "forkyse", "some description", "Trnava", "purkynova", 61200, 0944456789, TIME("07:00:00"), TIME("17:00:00"));
 
 insert into item values (101, "spaghetti", "Delicious spaghetti", "/img/spaghetti.jpg", 3, "meal", true, true, false);
 

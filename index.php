@@ -1,6 +1,14 @@
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" type="text/css" href="styles/style.css">
 
 <?php
+
+include "src/header.php";
+
+echo <<<HTML
+
+<!-- <h2>asdf</h2> -->
+HTML;
+
 $servername = "localhost";
 $username = "iisUser";
 $password = "iisPassword";
@@ -21,7 +29,7 @@ try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
     // set the PDO error mode to exception
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully"."<br>";
+    // echo "Connected successfully"."<br>";
 
     $myvar = 'restaurant';
 
@@ -44,6 +52,7 @@ try {
     
     echo <<<HTML
 
+    <div class="main-page-container">
         <div id="restaurantCards">
 HTML;
 
@@ -72,6 +81,7 @@ HTML;
     echo <<<HTML
     
         </div>
+    </div>
 HTML;
 
     // echo "<br><br>";

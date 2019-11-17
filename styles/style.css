@@ -1,6 +1,8 @@
 *{
     background-color:#212121;color:#EEFFFF;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 #restaurantCards{
     display: flex;
@@ -10,4 +12,11 @@
     border: 2px solid white;
     padding: 8px;
     margin: 5px;
+}
+
+.main-page-container{
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 10px;
+    position: relative;
 }
