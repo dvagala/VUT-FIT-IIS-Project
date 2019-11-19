@@ -1,57 +1,10 @@
-<link rel="stylesheet" type="text/css" href="styles/style.css">
-<link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"> 
-
 <?php
 
-include "src/header.php";
+include "header.php";
 
-echo <<<HTML
-
-<!-- <h2>asdf</h2> -->
-HTML;
-
-$servername = "localhost";
-$username = "iisUser";
-$password = "iisPassword";
-$dbName = "iisDb";
-
-
-// class Restaurant{
-//     public $restaurantId;
-//     public $name;
-//     public $town;
-//     public $street;
-//     public $zip;
-//     public $ordersClosure;
-// }
-
-
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$dbName", $username, $password);
-    // set the PDO error mode to exception
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    // echo "Connected successfully"."<br>";
-
-    $myvar = 'restaurant';
-
-    // $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ? AND status=?');
-    // $stmt->execute([$email, $status]);
-    // $user = $stmt->fetch();
-
-    // $stmt = $pdo->query('SELECT name FROM restaurant');
-    // $stmt = $pdo->prepare('SELECT * FROM restaurant');
-    // $stmt->execute([$myvar]);
-
-    // PDO::FETCH_ASSOC
-
-    // $row = $stmt->fetch();
-    // SELECT TIME_FORMAT(`openingTime`, '%H:%i') FROM `restaurant`;
-
-    $data = $pdo->query("SELECT name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i')  FROM restaurant")->fetchAll(PDO::FETCH_ASSOC);
-
-    // print_r($data);
+$data = $pdo->query("SELECT name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i')  FROM restaurant")->fetchAll(PDO::FETCH_ASSOC);
     
-    echo <<<HTML
+echo <<<HTML
 
     <div class="main-page-container">
         <div id="restaurantCards">
@@ -68,33 +21,26 @@ HTML;
                 <button>Enter</button>
             </div>
 HTML;
-
-// <div id="restaurantCard">
-// <h3>Purynka</h3>
-// <p>Sweet uni canteen</p>
-// <p>Brno</p>
-// <p>10:00 - 16:00</p>
-// <button>Enter</button>
-// </div>
-
-        // print_r($restaurant);
     }
-    echo <<<HTML
-    
-        </div>
+echo <<<HTML
+
     </div>
+</div>
 HTML;
 
-    // echo "<br><br>";
-
-    // while ($row = $stmt->fetch())
-    // {
-    //     echo $row['name']."<br>";
-    // }
-
-    }
-catch(PDOException $e)
-    {
-        echo "Connection failed: " . $e->getMessage();
-    }
 ?>
+
+
+
+<!-- // $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ? AND status=?');
+    // $stmt->execute([$email, $status]);
+    // $user = $stmt->fetch();
+
+    // $stmt = $pdo->query('SELECT name FROM restaurant');
+    // $stmt = $pdo->prepare('SELECT * FROM restaurant');
+    // $stmt->execute([$myvar]);
+
+    // PDO::FETCH_ASSOC
+
+    // $row = $stmt->fetch();
+    // SELECT TIME_FORMAT(`openingTime`, '%H:%i') FROM `restaurant`; -->
