@@ -3,13 +3,14 @@ drop table if exists itemWillBeInMenu;
 drop table if exists orderHasItem;
 drop table if exists restaurant;
 drop table if exists item;
-drop table if exists person;
 drop table if exists `order`;
+drop table if exists person;
+
 drop event if exists updateDailyMenuItemsEvent;
 
 -- CREATE USER 'iisUser'@'%' IDENTIFIED BY 'iisPassword';
--- GRANT ALL PRIVILEGES ON iisDb. * TO 'iisUser'@'%';
--- FLUSH PRIVILEGES;
+# GRANT ALL PRIVILEGES ON iisDb. * TO 'iisUser'@'%';
+# FLUSH PRIVILEGES;
 
 CREATE TABLE restaurant (
   restaurantId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -68,7 +69,7 @@ CREATE TABLE person (
   phoneNumber INT,
   mail VARCHAR(50),
   password VARCHAR(50),
-  state ENUM("unregistred", "diner", "driver", "operator", "admin")
+  state ENUM("unregistered", "diner", "driver", "operator", "admin")
 );
 
 
@@ -86,7 +87,7 @@ CREATE TABLE orderHasItem (
   orderId INT NOT NULL,
   itemId INT NOT NULL,
   PRIMARY KEY (orderId, itemId),
-  FOREIGN KEY (orderId) REFERENCES item(orderId),
+  FOREIGN KEY (orderId) REFERENCES `order`(orderId),
   FOREIGN KEY (itemId) REFERENCES item(itemId)
 );
 
@@ -111,8 +112,11 @@ insert into itemWillBeInMenu values (103, DATE("2019-11-11"));
 insert into itemWillBeInMenu values (104, DATE("2019-11-12"));
 
 
-insert into person values (10, "Jakub", "brno", "purkynova", 61200, 0985456789, "jakub@gmail.com", "hashedPassword", "diner");
-insert into person values (11, "Dominik", "brno", "purkynova", 61200, 0985456789, "jakub@gmail.com", "hashedPassword", "driver");
+insert into person values (10, "Jakub", "brno", "purkynova", 61200, 0985456789, "jakub@gmail.com", "hashedPassword", "admin");
+insert into person values (11, "Dominik", "brno", "purkynova", 61200, 0985456789, "dominik@gmail.com", "hashedPassword", "operator");
+insert into person values (12, "Peter", "Jaslovske Bohunice", "Atomka", 61200, 0985456789, "peter@gmail.com", "hashedPassword", "diner");
+insert into person values (13, "Marek", "Trnava", "Skusobka", 61200, 0985456789, "marek@gmail.com", "hashedPassword", "diner");
+insert into person values (14, "Michal", "Trnava", "Johna Dopieru 26/a", 61200, 0985456789, "michal@gmail.com", "hashedPassword", "driver");
 
 
 insert into `order` values (20, "Please call me 20min before delivery", "unconfirmed", 10, 11);
