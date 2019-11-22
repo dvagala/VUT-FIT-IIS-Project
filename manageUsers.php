@@ -11,7 +11,7 @@ echo <<<HTML
 HTML;
 $data = $pdo->query("SELECT * FROM person")->fetchAll(PDO::FETCH_ASSOC);
 
-if(isset($_POST['submit'])){
+if(isset($_POST['submit']) && $_POST['ChangeRole']!=''){
     $roleAndId = explode('_',$_POST['ChangeRole']);
     $sql = "UPDATE person SET state='$roleAndId[0]' WHERE personId=$roleAndId[1]";
     $pdo->query($sql);
@@ -49,11 +49,7 @@ HTML;
 
 echo <<<HTML
 
-<script>
-
-
-</script>
-
+</table>
 HTML;
 
 
