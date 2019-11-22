@@ -19,7 +19,7 @@
 <body>
     <div class="main-page-container">
         <div class="main-header">
-            <p>Food delivery</p>
+            <p><a href="index.php">Food delivery</a></p>
 
             <?php
             session_start();
@@ -49,7 +49,7 @@ HTML;
                         <li><a href="">My profile</a></li>
                         <li><a href="">My orders</a></li>
                         <li><a href="">Manage drivers</a></li>
-                        <li><a href="">Manage users</a></li>
+                        <li><a href="manageUsers.php">Manage users</a></li>
                         <li><a href="processLogout.php">Logout</a></li>
                     </ul>
                 </div>
