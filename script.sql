@@ -14,21 +14,21 @@ drop event if exists updateDailyMenuItemsEvent;
 
 CREATE TABLE restaurant (
   restaurantId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  name VARCHAR(50),
-  description VARCHAR(50),
-  town VARCHAR(50),
-  street VARCHAR(50),
+  name TINYTEXT,
+  description TEXT,
+  town TINYTEXT,
+  street TINYTEXT,
   zip INT,
-  phoneNumber VARCHAR(50),
+  phoneNumber TINYTEXT,
   openingTime TIME,
   closureTime TIME
 );
 
 CREATE TABLE item (
   itemId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  name VARCHAR(50),
-  description VARCHAR(50),
-  picture VARCHAR(50),
+  name TINYTEXT,
+  description TEXT,
+  picture TEXT,
   price INT,
   type ENUM("dailyMenu", "sauce", "meal", "beverage","sidedish"),
   isInMenu BOOLEAN DEFAULT FALSE,
@@ -62,20 +62,20 @@ DO
 
 CREATE TABLE person (
   personId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  Name VARCHAR(50),
-  Town VARCHAR(50),
-  Street VARCHAR(50),
+  Name TINYTEXT,
+  Town TINYTEXT,
+  Street TINYTEXT,
   ZIP INT,
-  phoneNumber VARCHAR(50),
-  mail VARCHAR(50),
-  password VARCHAR(50),
+  phoneNumber TINYTEXT,
+  mail TINYTEXT,
+  password LONGTEXT,
   state ENUM("unregistered", "diner", "driver", "operator", "admin")
 );
 
 
 CREATE TABLE `order` (
   orderId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  additionalInfo VARCHAR(50),
+  additionalInfo TEXT,
   state ENUM("unconfirmed", "confirmed", "delivery"),
   dinerId INT NOT NULL,
   driverId INT NOT NULL,
