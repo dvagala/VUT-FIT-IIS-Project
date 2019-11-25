@@ -30,7 +30,12 @@
             </div>
                 <div class="login-dropdown">
                     <form class="login-form" action="processLogin.php" method="post">
-                         <input type="email" name="userEmail" placeholder="Email" class="display-block">
+                         <input type="email" name="userEmail" placeholder="Email" class="display-block" value=
+                         <?php echo "\"";
+                            if(isset($_GET["userEmail"])) {
+                                echo $_GET["userEmail"];
+                            }
+                            echo "\""; ?>>
                          <input type="password" name="userPassword" placeholder="Password" class="display-block">
                         <button class="login-form-button">Login</button>
                         <?php if(isset($_GET['loginError'])){ ?>
@@ -42,6 +47,9 @@
 
                             <?php if($_GET['loginError'] == "wrongEmail"){ ?>
                                 <label class="error-label">Wrong email!</label>
+                            <?php }
+                            if($_GET['loginError'] == "wrongPassword"){ ?>
+                                <label class="error-label">Wrong password!</label>
                             <?php }
                         } ?>
                     </form>
@@ -65,7 +73,6 @@
 
 
 <script>
-
 
 $(function(){
 
@@ -91,7 +98,6 @@ $(function(){
         }
     }); 
 });
-
 
 </script>
 </html>

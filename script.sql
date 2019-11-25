@@ -68,7 +68,7 @@ CREATE TABLE person (
   ZIP INT,
   phoneNumber TINYTEXT,
   mail TINYTEXT,
-  password LONGTEXT,
+  hashedPassword LONGTEXT,
   state ENUM("unregistered", "diner", "driver", "operator", "admin")
 );
 

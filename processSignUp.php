@@ -18,8 +18,8 @@
     }
 
     // Add new user to Db
-    $stmt = $pdo->prepare("INSERT INTO person (Name, Town, Street, ZIP, phoneNumber, mail, password, state) VALUES (?, ?, ?, ?, ?, ?, \"hashedPassword\", \"admin\");");
-    $stmt->execute([$_POST["userName"]." ".$_POST["userSurname"], $_POST["userTown"], $_POST["userStreet"], $_POST["userZIP"], $_POST["userPhoneNumber"], $_POST["userEmail"]]);
+    $stmt = $pdo->prepare("INSERT INTO person (Name, Town, Street, ZIP, phoneNumber, mail, hashedPassword, state) VALUES (?, ?, ?, ?, ?, ?, ?, \"admin\");");
+    $stmt->execute([$_POST["userName"]." ".$_POST["userSurname"], $_POST["userTown"], $_POST["userStreet"], $_POST["userZIP"], $_POST["userPhoneNumber"], $_POST["userEmail"], password_hash($_POST["userPassword"], PASSWORD_DEFAULT)]);
 
     $newUserId = $pdo->lastInsertId();
     
