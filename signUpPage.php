@@ -1,46 +1,108 @@
 <?php
 
 include "header.php";
-include "dbConnect.php"; ?>
+?>
 
 <link rel="stylesheet" type="text/css" href="styles/signUpPageStyle.css">
 
-
 <div class="main-page-container">
-    <form class="signUp-form" action="processSignUp.php" method="post">
-        <div class="display-block signUpRow">
-            <label type="text">Name</input>
-            <input type="text" name="userName" placeholder="Name">
-        </div>
-        <div class="display-block signUpRow">
-            <label type="text">Surname</input>
-            <input type="text" name="userSurname" placeholder="Surname">
-        </div>
-        <div class="display-block signUpRow">
-            <label type="text">Town</input>
-            <input type="text" name="userTown" placeholder="Town">
-        </div>
-        <div class="display-block signUpRow">
-            <label type="text">Address</input>
-            <input type="text" name="userAddress" placeholder="Address">
-        </div>
-        <div class="display-block signUpRow">
-            <label type="text">ZIP</input>
-            <input type="text" name="userZIP" placeholder="ZIP">
-        </div>
-        <div class="display-block signUpRow">
-            <label type="text">Email</input>
-            <input type="text" name="userEmail" placeholder="Email">
-        </div>
-        <div class="display-block signUpRow">
-            <label type="text">Phone number</input>
-            <input type="number" name="userPhoneNumber" placeholder="PhoneNumber">
-        </div>
-        <div class="display-block signUpRow">
-            <label type="text">Password</input>
-            <input type="password" name="userPassword" placeholder="Password">
-        </div>
+    <form action="processSignUp.php" method="post">
+        <table>
+            <tr>
+                <td><label type="text" >Name</input></td>
+                <td><input type="text" value=
+                <?php echo "\"";
+                    if(isset($_GET["userName"])) {
+                        echo $_GET["userName"];
+                    }
+                    echo "\""; ?> 
+                name="userName" placeholder="Name"></td>
+            </tr>
+            <tr>
+                <td><label type="text">Surname</input></td>
+                <td><input type="text" value=
+                <?php echo "\"";
+                    if(isset($_GET["userSurname"])) {
+                        echo $_GET["userSurname"];
+                    }
+                    echo "\""; ?> 
+                name="userSurname" placeholder="Surname"></td>
+            </tr>
+            <tr>
+                <td><label type="text">Town</input></td>
+                <td><input type="text" value=
+                <?php echo "\"";
+                    if(isset($_GET["userTown"])) {
+                        echo $_GET["userTown"];
+                    }
+                    echo "\""; ?> 
+                name="userTown" placeholder="Town"></td>
+            </tr>
+            <tr>
+                <td><label type="text">Street</input></td>
+                <td><input type="text" value=
+                <?php echo "\"";
+                    if(isset($_GET["userStreet"])) {
+                        echo $_GET["userStreet"];
+                    }
+                    echo "\""; ?> 
+                name="userStreet" placeholder="Street"></td>
+            </tr>
+            <tr>
+                <td><label type="text">ZIP</input></td>
+                <td><input type="text" pattern="\d{5}" value=
+                <?php echo "\"";
+                    if(isset($_GET["userZIP"])) {
+                        echo $_GET["userZIP"];
+                    }
+                    echo "\""; ?> 
+                name="userZIP" placeholder="ZIP (Eg.: 61200)"></td>
+            </tr>
+            <tr>
+                <td><label type="text">Phone number</input></td>
+                <td><input type="tel" value=
+                <?php echo "\"";
+                    if(isset($_GET["userPhoneNumber"])) {
+                        echo $_GET["userPhoneNumber"];
+                    }
+                    echo "\""; ?> 
+                name="userPhoneNumber" placeholder="PhoneNumber"></td>
+            </tr>
+            <tr>
+                <td><label type="text">Email</input></td>
+                <td><input type="email" value=
+                <?php echo "\"";
+                    if(isset($_GET["userEmail"])) {
+                        echo $_GET["userEmail"];
+                    }
+                    echo "\""; ?> 
+                name="userEmail" placeholder="Email"></td>
+            </tr>
+            <tr>
+                <td><label type="text">Password</input></td>
+                <td><input type="password" name="userPassword" placeholder="Password"></td>
+            </tr>
 
-        <button >Sign up</button>
-    </form>
+            <?php if(isset($_GET['signUpError'])){ ?>
+                <?php if($_GET['signUpError'] == "emptyField"){ ?>
+                    <tr>
+                        <td></td>
+                        <td><label>Fill in all fields!</label></td>
+                    </tr>
+                <?php } ?>
+
+                <?php if($_GET['signUpError'] == "takenEmail"){ ?>
+                    <tr>
+                        <td></td>
+                        <td><label>User with this email already exists!</label></td>
+                    </tr>
+                <?php }
+            } ?>
+
+            <tr>
+                <td></td>
+                <td><button >Sign up</button></td>
+            </tr>
+        </table>
+    </form> 
 </div>

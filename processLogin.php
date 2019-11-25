@@ -9,7 +9,7 @@
 
     if(empty($person)){
         // echo "Not existing user!";
-        header("location: index.php?error=wrongEmail");
+        header("location: index.php?loginError=wrongEmail");
     }else{
         $_SESSION["userId"] = $person["personId"];
         $_SESSION["userEmail"] = $_POST["userEmail"];

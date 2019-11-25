@@ -30,17 +30,17 @@
             </div>
                 <div class="login-dropdown">
                     <form class="login-form" action="processLogin.php" method="post">
-                         <input type="text" name="userEmail" placeholder="Email" class="display-block">
+                         <input type="email" name="userEmail" placeholder="Email" class="display-block">
                          <input type="password" name="userPassword" placeholder="Password" class="display-block">
                         <button class="login-form-button">Login</button>
-                        <?php if(isset($_GET['error'])){ ?>
+                        <?php if(isset($_GET['loginError'])){ ?>
                                 <style>
                                     .login-dropdown{
                                         display: block ; 
                                     }
                                 </style>
 
-                            <?php if($_GET['error'] == "wrongEmail"){ ?>
+                            <?php if($_GET['loginError'] == "wrongEmail"){ ?>
                                 <label class="error-label">Wrong email!</label>
                             <?php }
                         } ?>

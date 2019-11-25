@@ -9,8 +9,8 @@ drop table if exists person;
 drop event if exists updateDailyMenuItemsEvent;
 
 -- CREATE USER 'iisUser'@'%' IDENTIFIED BY 'iisPassword';
-# GRANT ALL PRIVILEGES ON iisDb. * TO 'iisUser'@'%';
-# FLUSH PRIVILEGES;
+-- # GRANT ALL PRIVILEGES ON iisDb. * TO 'iisUser'@'%';
+-- # FLUSH PRIVILEGES;
 
 CREATE TABLE restaurant (
   restaurantId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -19,7 +19,7 @@ CREATE TABLE restaurant (
   town VARCHAR(50),
   street VARCHAR(50),
   zip INT,
-  phoneNumber INT,
+  phoneNumber VARCHAR(50),
   openingTime TIME,
   closureTime TIME
 );
@@ -61,12 +61,12 @@ DO
   where date = CURRENT_DATE();
 
 CREATE TABLE person (
-  personId INT NOT NULL PRIMARY KEY,
+  personId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   Name VARCHAR(50),
   Town VARCHAR(50),
   Street VARCHAR(50),
   ZIP INT,
-  phoneNumber INT,
+  phoneNumber VARCHAR(50),
   mail VARCHAR(50),
   password VARCHAR(50),
   state ENUM("unregistered", "diner", "driver", "operator", "admin")
@@ -74,7 +74,7 @@ CREATE TABLE person (
 
 
 CREATE TABLE `order` (
-  orderId INT NOT NULL PRIMARY KEY,
+  orderId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   additionalInfo VARCHAR(50),
   state ENUM("unconfirmed", "confirmed", "delivery"),
   dinerId INT NOT NULL,
@@ -92,12 +92,12 @@ CREATE TABLE orderHasItem (
 );
 
 
-insert into restaurant values (1, "purkynka", "some description", "brno", "purkynova", 61200, 0944456789, TIME("08:00:00"), TIME("18:00:00"));
-insert into restaurant values (2, "skacelka", "some description", "brno", "purkynova", 61200, 0944456789, TIME("09:00:00"), TIME("21:30:00"));
-insert into restaurant values (3, "forkys", "some description", "Trnava", "purkynova", 61200, 0944456789, TIME("07:00:00"), TIME("17:00:00"));
-insert into restaurant values (4, "forkysq", "some description", "Trnava", "purkynova", 61200, 0944456789, TIME("07:00:00"), TIME("17:00:00"));
-insert into restaurant values (5, "forkysw", "some description", "Trnava", "purkynova", 61200, 0944456789, TIME("07:00:00"), TIME("17:00:00"));
-insert into restaurant values (6, "forkyse", "some description", "Trnava", "purkynova", 61200, 0944456789, TIME("07:00:00"), TIME("17:00:00"));
+insert into restaurant values (1, "purkynka", "some description", "brno", "purkynova", 61200, "0944456789", TIME("08:00:00"), TIME("18:00:00"));
+insert into restaurant values (2, "skacelka", "some description", "brno", "purkynova", 61200, "0944456789", TIME("09:00:00"), TIME("21:30:00"));
+insert into restaurant values (3, "forkys", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"));
+insert into restaurant values (4, "forkysq", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"));
+insert into restaurant values (5, "forkysw", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"));
+insert into restaurant values (6, "forkyse", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"));
 
 insert into item values (101, "spaghetti", "Delicious spaghetti", "/img/spaghetti.jpg", 3, "meal", true, true, false);
 
@@ -112,11 +112,11 @@ insert into itemWillBeInMenu values (103, DATE("2019-11-11"));
 insert into itemWillBeInMenu values (104, DATE("2019-11-12"));
 
 
-insert into person values (10, "Jakub", "brno", "purkynova", 61200, 0985456789, "jakub@gmail.com", "hashedPassword", "admin");
-insert into person values (11, "Dominik", "brno", "purkynova", 61200, 0985456789, "dominik@gmail.com", "hashedPassword", "operator");
-insert into person values (12, "Peter", "Jaslovske Bohunice", "Atomka", 61200, 0985456789, "peter@gmail.com", "hashedPassword", "diner");
-insert into person values (13, "Marek", "Trnava", "Skusobka", 61200, 0985456789, "marek@gmail.com", "hashedPassword", "diner");
-insert into person values (14, "Michal", "Trnava", "Johna Dopieru 26/a", 61200, 0985456789, "michal@gmail.com", "hashedPassword", "driver");
+insert into person values (10, "Jakub", "brno", "purkynova", 61200, "0985456789", "jakub@gmail.com", "hashedPassword", "admin");
+insert into person values (11, "Dominik", "brno", "purkynova", 61200, "0985456789", "dominik@gmail.com", "hashedPassword", "operator");
+insert into person values (12, "Peter", "Jaslovske Bohunice", "Atomka", 61200, "0985456789", "peter@gmail.com", "hashedPassword", "diner");
+insert into person values (13, "Marek", "Trnava", "Skusobka", 61200, "0985456789", "marek@gmail.com", "hashedPassword", "diner");
+insert into person values (14, "Michal", "Trnava", "Johna Dopieru 26/a", 61200, "0985456789", "michal@gmail.com", "hashedPassword", "driver");
 
 
 insert into `order` values (20, "Please call me 20min before delivery", "unconfirmed", 10, 11);
