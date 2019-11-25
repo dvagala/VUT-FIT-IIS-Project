@@ -3,16 +3,19 @@
 include "header.php";
 include "dbConnect.php";
 
-$data = $pdo->query("SELECT name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i')  FROM restaurant")->fetchAll(PDO::FETCH_ASSOC); ?>
+$data = $pdo->query("SELECT name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i'), isVegan, isGlutenFree FROM restaurant")->fetchAll(PDO::FETCH_ASSOC); ?>
     
 
 <div class="main-page-container">
+
+    <input type="text" id="restaurantSearchInput" placeholder="Find restaruant">
+
     <div id="restaurantCards">
 
     <?php foreach ($data as $restaurant){
         echo <<<HTML
 
-            <div id="restaurantCard">
+            <div class="restaurantCard" id={$restaurant['isVegan']}>
                 <h3>{$restaurant['name']}</h3>
                 <p>{$restaurant['description']}</p>
                 <p>{$restaurant['town']}</p>
@@ -24,7 +27,19 @@ HTML;
     </div>
 </div>
 
+data-animal-type
 
+<script>
+
+$("#restaurantSearchInput").keyup(function(){
+    // $(".restaurantCard").{
+    //     this.css("background-color", "yellow");
+    // }
+
+    alert($(".restaurantCard").attr("id"));
+});
+
+</script>
 
 <!-- // $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ? AND status=?');
     // $stmt->execute([$email, $status]);

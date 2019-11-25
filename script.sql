@@ -8,6 +8,7 @@ drop table if exists person;
 
 drop event if exists updateDailyMenuItemsEvent;
 
+
 -- CREATE USER 'iisUser'@'%' IDENTIFIED BY 'iisPassword';
 -- # GRANT ALL PRIVILEGES ON iisDb. * TO 'iisUser'@'%';
 -- # FLUSH PRIVILEGES;
@@ -21,7 +22,9 @@ CREATE TABLE restaurant (
   zip INT,
   phoneNumber TINYTEXT,
   openingTime TIME,
-  closureTime TIME
+  closureTime TIME,
+  hasVeganItems BOOLEAN DEFAULT FALSE,      -- These are set automatically, when you add some item to restaurant
+  hasGlutenFreeItems BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE item (
@@ -36,6 +39,7 @@ CREATE TABLE item (
   isGlutenFree BOOLEAN DEFAULT FALSE
 );
 
+
 CREATE TABLE restaurantHasItem (
   restaurantId INT NOT NULL,
   itemId INT NOT NULL,
@@ -43,6 +47,7 @@ CREATE TABLE restaurantHasItem (
   FOREIGN KEY (restaurantId) REFERENCES restaurant(restaurantId),
   FOREIGN KEY (itemId) REFERENCES item(itemId)
 );
+
 
 CREATE TABLE itemWillBeInMenu (
   itemId INT NOT NULL,
@@ -92,18 +97,22 @@ CREATE TABLE orderHasItem (
 );
 
 
-insert into restaurant values (1, "purkynka", "some description", "brno", "purkynova", 61200, "0944456789", TIME("08:00:00"), TIME("18:00:00"));
-insert into restaurant values (2, "skacelka", "some description", "brno", "purkynova", 61200, "0944456789", TIME("09:00:00"), TIME("21:30:00"));
-insert into restaurant values (3, "forkys", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"));
-insert into restaurant values (4, "forkysq", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"));
-insert into restaurant values (5, "forkysw", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"));
-insert into restaurant values (6, "forkyse", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"));
+
+
+insert into restaurant values (1, "purkynka", "some description", "brno", "purkynova", 61200, "0944456789", TIME("08:00:00"), TIME("18:00:00"), false, false);
+insert into restaurant values (2, "skacelka", "some description", "brno", "purkynova", 61200, "0944456789", TIME("09:00:00"), TIME("21:30:00"), false, false);
+insert into restaurant values (3, "forkys", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"), false, false);
+insert into restaurant values (4, "forkysq", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"), false, false);
+insert into restaurant values (5, "forkysw", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"), false, false);
+insert into restaurant values (6, "forkyse", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"), false, false);
 
 insert into item values (101, "spaghetti", "Delicious spaghetti", "/img/spaghetti.jpg", 3, "meal", true, true, false);
 
-insert into item values (102, "lasagne", "lasagne decrip", "/img/lasagne.jpg", 6, "dailyMenu", false, false, false);
-insert into item values (103, "chilli con carne", "lasagne decrip", "/img/lasagne.jpg", 6, "dailyMenu", false, false, false);
-insert into item values (104, "pizza", "lasagne decrip", "/img/lasagne.jpg", 6, "dailyMenu", false, false, false);
+insert into item values (102, "lasagne", "lasagne decrip", "/img/lasagne.jpg", 6, "dailyMenu", true, false, false);
+insert into item values (103, "chilli con carne", "lasagne decrip", "/img/lasagne.jpg", 6, "dailyMenu", true, true, false);
+insert into item values (104, "pizza", "lasagne decrip", "/img/lasagne.jpg", 6, "dailyMenu", true, false, false);
+
+
 
 insert into restaurantHasItem values (1, 101);
 insert into restaurantHasItem values (1, 102);
@@ -133,4 +142,13 @@ select * from orderHasItem;
 select * from `order`;
 select * from person;
 
--- SELECT TIME_FORMAT(`openingTime`, '%H:%i') FROM `restaurant`;
+-- select restaurantId, hasVeganItems from restaurant;
+
+
+-- update item set isVegan = TRUE where itemId = 101;
+-- update restaurant set hasVeganItems = FALSE where restaurantId = 1;
+-- update item set isInMenu = TRUE where itemId = 102;
+-- -- insert into restaurantHasItem values (1, 103);
+-- delete from restaurantHasItem where itemId = 101 and restaurantId = 1;
+-- insert into restaurantHasItem values (1, 103);
+-- update restaurantHasItem set itemId = 102 where itemId = 101;
