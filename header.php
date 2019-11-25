@@ -1,6 +1,3 @@
-<?php
-    include "dbConnect.php";
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,46 +18,57 @@
         <div class="main-header">
             <p><a href="index.php">Food delivery</a></p>
 
-            <?php
-            session_start();
-
-                if(isset($_SESSION["userId"])){
-echo <<<HTML
-            <p>Your logged in</p>
-HTML;
-          
-                }
-            ?>
+            <?php session_start(); ?>
 
             <div class="header-nav">
-                <a class="login-nav-link" href="#">Login</a>
-                <a href="#">Sign up</a>
+                <?php if(!isset($_SESSION["userId"])){?>
+                    <a class="login-nav-link" href="#">Login</a>
+                    <a href="signUpPage.php">Sign up</a>
+                <?php } ?>
+
                 <a class="menu-nav-link" href="#">Menu</a>
             </div>
                 <div class="login-dropdown">
                     <form class="login-form" action="processLogin.php" method="post">
-                        <input type="text" name="userEmail" placeholder="Email">
-                        <input type="password" name="userPassword" placeholder="Password">
+                         <input type="text" name="userEmail" placeholder="Email" class="display-block">
+                         <input type="password" name="userPassword" placeholder="Password" class="display-block">
                         <button class="login-form-button">Login</button>
+                        <?php if(isset($_GET['error'])){ ?>
+                                <style>
+                                    .login-dropdown{
+                                        display: block ; 
+                                    }
+                                </style>
+
+                            <?php if($_GET['error'] == "wrongEmail"){ ?>
+                                <label class="error-label">Wrong email!</label>
+                            <?php }
+                        } ?>
                     </form>
                 </div>
                 <div class="menu-dropdown">
                     <ul>
-                        <li><a href="">My profile</a></li>
                         <li><a href="">My orders</a></li>
-                        <li><a href="">Manage drivers</a></li>
-                        <li><a href="manageUsers.php">Manage users</a></li>
-                        <li><a href="processLogout.php">Logout</a></li>
+
+                        <?php if(isset($_SESSION["userId"])){?>
+                            <li><a href="">My profile</a></li>
+                            <li><a href="">Manage drivers</a></li>
+                            <li><a href="manageUsers.php">Manage users</a></li>
+                            <li><a href="processLogout.php">Logout</a></li>
+                        <?php } ?>
                     </ul>
                 </div>
         </div>
     </div>
 </body>
 
+
+
 <script>
 
 
 $(function(){
+
     $(".login-nav-link").click(function(){
         $(".login-dropdown").fadeToggle(200);    
     });
@@ -69,7 +77,7 @@ $(function(){
         $(".menu-dropdown").fadeToggle(200);    
     });
 
-    $(document).mouseup(function(e){ 
+    $(document).mousedown(function(e){ 
         if($(e.target).closest(".login-nav-link").length === 0){
             if ($(e.target).closest(".login-dropdown").length === 0){ 
                 $(".login-dropdown").fadeOut(200); 

@@ -1,16 +1,15 @@
 <?php
 
 include "header.php";
+include "dbConnect.php";
 
-$data = $pdo->query("SELECT name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i')  FROM restaurant")->fetchAll(PDO::FETCH_ASSOC);
+$data = $pdo->query("SELECT name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i')  FROM restaurant")->fetchAll(PDO::FETCH_ASSOC); ?>
     
-echo <<<HTML
 
-    <div class="main-page-container">
-        <div id="restaurantCards">
-HTML;
+<div class="main-page-container">
+    <div id="restaurantCards">
 
-    foreach ($data as $restaurant){
+    <?php foreach ($data as $restaurant){
         echo <<<HTML
 
             <div id="restaurantCard">
@@ -21,14 +20,9 @@ HTML;
                 <button>Enter</button>
             </div>
 HTML;
-    }
-echo <<<HTML
-
+    }?>
     </div>
 </div>
-HTML;
-
-?>
 
 
 

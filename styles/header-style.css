@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: space-between;
 	height: 40px;
+	margin-bottom: 50px;
 }
 
 a{
@@ -39,9 +40,7 @@ a:hover{
 	float: right;
 }
 
-.login-dropdown input{
-    display: block;
-}
+
 
 .menu-dropdown{
     position: absolute;
