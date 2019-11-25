@@ -3,16 +3,19 @@
 include "header.php";
 include "dbConnect.php";
 
-$data = $pdo->query("SELECT name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i')  FROM restaurant")->fetchAll(PDO::FETCH_ASSOC); ?>
+$data = $pdo->query("SELECT name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i') FROM restaurant")->fetchAll(PDO::FETCH_ASSOC); ?>
     
 
 <div class="main-page-container">
+
+    <input type="text" id="restaurantSearchInput" placeholder="Find restaruant">
+
     <div id="restaurantCards">
 
     <?php foreach ($data as $restaurant){
         echo <<<HTML
 
-            <div id="restaurantCard">
+            <div class="restaurantCard" data-restaurant-name={$restaurant['name']}>
                 <h3>{$restaurant['name']}</h3>
                 <p>{$restaurant['description']}</p>
                 <p>{$restaurant['town']}</p>
@@ -25,16 +28,16 @@ HTML;
 </div>
 
 
+<script>
 
-<!-- // $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ? AND status=?');
-    // $stmt->execute([$email, $status]);
-    // $user = $stmt->fetch();
+$("#restaurantSearchInput").keyup(function(){
+    $(".restaurantCard").each(function(){
+        if ($(this).attr("data-restaurant-name").indexOf($("#restaurantSearchInput").val()) >= 0) {
+            $(this).css("display", "block");
+        }else{
+            $(this).css("display", "none");
+        }
+    });
+});
 
-    // $stmt = $pdo->query('SELECT name FROM restaurant');
-    // $stmt = $pdo->prepare('SELECT * FROM restaurant');
-    // $stmt->execute([$myvar]);
-
-    // PDO::FETCH_ASSOC
-
-    // $row = $stmt->fetch();
-    // SELECT TIME_FORMAT(`openingTime`, '%H:%i') FROM `restaurant`; -->
+</script>
