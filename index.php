@@ -3,7 +3,7 @@
 include "header.php";
 include "dbConnect.php";
 
-$data = $pdo->query("SELECT name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i'), isVegan, isGlutenFree FROM restaurant")->fetchAll(PDO::FETCH_ASSOC); ?>
+$data = $pdo->query("SELECT name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i') FROM restaurant")->fetchAll(PDO::FETCH_ASSOC); ?>
     
 
 <div class="main-page-container">
@@ -15,7 +15,7 @@ $data = $pdo->query("SELECT name, description, town, TIME_FORMAT(openingTime, '%
     <?php foreach ($data as $restaurant){
         echo <<<HTML
 
-            <div class="restaurantCard" id={$restaurant['isVegan']}>
+            <div class="restaurantCard" data-restaurant-name={$restaurant['name']}>
                 <h3>{$restaurant['name']}</h3>
                 <p>{$restaurant['description']}</p>
                 <p>{$restaurant['town']}</p>
@@ -27,29 +27,17 @@ HTML;
     </div>
 </div>
 
-data-animal-type
 
 <script>
 
 $("#restaurantSearchInput").keyup(function(){
-    // $(".restaurantCard").{
-    //     this.css("background-color", "yellow");
-    // }
-
-    alert($(".restaurantCard").attr("id"));
+    $(".restaurantCard").each(function(){
+        if ($(this).attr("data-restaurant-name").indexOf($("#restaurantSearchInput").val()) >= 0) {
+            $(this).css("display", "block");
+        }else{
+            $(this).css("display", "none");
+        }
+    });
 });
 
 </script>
-
-<!-- // $stmt = $pdo->prepare('SELECT * FROM users WHERE email = ? AND status=?');
-    // $stmt->execute([$email, $status]);
-    // $user = $stmt->fetch();
-
-    // $stmt = $pdo->query('SELECT name FROM restaurant');
-    // $stmt = $pdo->prepare('SELECT * FROM restaurant');
-    // $stmt->execute([$myvar]);
-
-    // PDO::FETCH_ASSOC
-
-    // $row = $stmt->fetch();
-    // SELECT TIME_FORMAT(`openingTime`, '%H:%i') FROM `restaurant`; -->
