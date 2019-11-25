@@ -26,7 +26,7 @@ if(isset($_POST['filter'])){
     $data = $pdo->query("SELECT * FROM person")->fetchAll(PDO::FETCH_ASSOC);
     $final_data = [];
     if($_POST['Role']=="All" and $_POST['nameLookup']=='' and $_POST['idLookup']==''){
-        $data = $pdo->query("SELECT * FROM person")->fetchAll(PDO::FETCH_ASSOC);
+
     }
     else{
 
