@@ -1,5 +1,6 @@
 <?php
 include "header.php";
+include "dbConnect.php";
 echo <<<HTML
 <head>
 <link rel="stylesheet" href="styles/manage-users-style.css">
