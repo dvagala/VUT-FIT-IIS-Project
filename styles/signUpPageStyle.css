@@ -1,0 +1,15 @@
+
+.signUp-form{
+    display: flex;
+    width: 400px;
+    /* background-color: rgb(153, 207, 255); */
+    flex-direction: column;
+}
+
+.signUpRow{
+    margin-left: auto;
+}
+
+.signUpRow input{
+    margin-left: 10px;
+}
