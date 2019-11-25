@@ -30,8 +30,8 @@ CREATE TABLE item (
   name TINYTEXT,
   description TEXT,
   picture TEXT,
-  price INT,
-  type ENUM("dailyMenu", "sauce", "meal", "beverage","sidedish"),
+  price DECIMAL(6,2),
+  type ENUM("dailyMenu", "meal","sidedish", "sauce", "beverage"),
   isInMenu BOOLEAN DEFAULT FALSE,
   isVegan BOOLEAN DEFAULT FALSE,
   isGlutenFree BOOLEAN DEFAULT FALSE
@@ -104,16 +104,60 @@ insert into restaurant values (4, "forkysq", "some description", "Trnava", "purk
 insert into restaurant values (5, "forkysw", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"));
 insert into restaurant values (6, "forkyse", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"));
 
-insert into item values (101, "spaghetti", "Delicious spaghetti", "/img/spaghetti.jpg", 3, "meal", true, true, false);
 
-insert into item values (102, "lasagne", "lasagne decrip", "/img/lasagne.jpg", 6, "dailyMenu", true, false, false);
-insert into item values (103, "chilli con carne", "lasagne decrip", "/img/lasagne.jpg", 6, "dailyMenu", true, true, false);
-insert into item values (104, "pizza", "lasagne decrip", "/img/lasagne.jpg", 6, "dailyMenu", true, false, false);
+insert into item values (100, "Spaghetti and Meatballs", "Delicious spaghetti", "/img/spaghetti.jpg", 8.2, "dailyMenu", true, true, false);
+insert into item values (101, "lasagne", "lasagne decrip", "/img/lasagne.jpg", 6.3, "dailyMenu", true, false, false);
+insert into item values (102, "chilli con carne", "lasagne decrip", "/img/lasagne.jpg", 4.4, "dailyMenu", true, true, false);
+insert into item values (103, "Burritos", "lasagne decrip", "/img/lasagne.jpg", 7.9, "dailyMenu", true, true, false);
+
+insert into item values (104, "spaghetti", "lasagne decrip", "/img/lasagne.jpg", 3.4, "sidedish", true, false, false);
+insert into item values (105, "rice", "lasagne decrip", "/img/lasagne.jpg", 2.7, "sidedish", true, false, false);
+insert into item values (106, "mashed potatoes", "lasagne decrip", "/img/lasagne.jpg", 3.6, "sidedish", true, false, false);
+insert into item values (107, "chips", "lasagne decrip", "/img/lasagne.jpg", 4.2, "sidedish", true, false, false);
+
+insert into item values (108, "majonese", "lasagne decrip", "/img/lasagne.jpg", 1.4, "sauce", true, false, false);
+insert into item values (109, "ketchup", "lasagne decrip", "/img/lasagne.jpg", 0.8, "sauce", true, false, false);
+insert into item values (110, "mustard", "lasagne decrip", "/img/lasagne.jpg", 0.9, "sauce", true, false, false);
+insert into item values (111, "lemon juice", "lasagne decrip", "/img/lasagne.jpg", 0.9, "sauce", true, false, false);
+
+insert into item values (112, "Coca cola", "lasagne decrip", "/img/lasagne.jpg", 2.4, "beverage", true, false, false);
+insert into item values (113, "Beer", "lasagne decrip", "/img/lasagne.jpg", 3.2, "beverage", true, false, false);
+insert into item values (114, "Wine", "lasagne decrip", "/img/lasagne.jpg", 1.6, "beverage", true, false, false);
+insert into item values (115, "Soda", "lasagne decrip", "/img/lasagne.jpg", 0.5, "beverage", true, false, false);
+
+insert into item values (116, "grilled chicken", "lasagne decrip", "/img/lasagne.jpg", 7.1, "meal", true, false, true);
+insert into item values (117, "salmon", "lasagne decrip", "/img/lasagne.jpg", 8.3, "meal", true, false, false);
+insert into item values (118, "pork", "lasagne decrip", "/img/lasagne.jpg", 9.7, "meal", true, false, false);
+insert into item values (119, "pizza", "lasagne decrip", "/img/lasagne.jpg", 5.4, "meal", true, false, true);
 
 
-
+insert into restaurantHasItem values (1, 100);
 insert into restaurantHasItem values (1, 101);
 insert into restaurantHasItem values (1, 102);
+insert into restaurantHasItem values (1, 103);
+
+insert into restaurantHasItem values (1, 104);
+insert into restaurantHasItem values (1, 105);
+insert into restaurantHasItem values (1, 106);
+insert into restaurantHasItem values (1, 107);
+
+insert into restaurantHasItem values (1, 108);
+insert into restaurantHasItem values (1, 109);
+insert into restaurantHasItem values (1, 110);
+insert into restaurantHasItem values (1, 111);
+
+insert into restaurantHasItem values (1, 112);
+insert into restaurantHasItem values (1, 113);
+insert into restaurantHasItem values (1, 114);
+insert into restaurantHasItem values (1, 115);
+
+insert into restaurantHasItem values (1, 116);
+insert into restaurantHasItem values (1, 117);
+insert into restaurantHasItem values (1, 118);
+insert into restaurantHasItem values (1, 119);
+
+
+
 insert into itemWillBeInMenu values (102, DATE("2019-11-10"));
 insert into itemWillBeInMenu values (103, DATE("2019-11-11"));
 insert into itemWillBeInMenu values (104, DATE("2019-11-12"));
@@ -140,13 +184,5 @@ select * from orderHasItem;
 select * from `order`;
 select * from person;
 
--- select restaurantId, hasVeganItems from restaurant;
-
-
--- update item set isVegan = TRUE where itemId = 101;
--- update restaurant set hasVeganItems = FALSE where restaurantId = 1;
--- update item set isInMenu = TRUE where itemId = 102;
--- -- insert into restaurantHasItem values (1, 103);
--- delete from restaurantHasItem where itemId = 101 and restaurantId = 1;
--- insert into restaurantHasItem values (1, 103);
--- update restaurantHasItem set itemId = 102 where itemId = 101;
+select * from item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId
+where restaurantHasItem.restaurantId = 1 and item.type = "dailyMenu";

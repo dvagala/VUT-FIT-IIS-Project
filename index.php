@@ -3,25 +3,21 @@
 include "header.php";
 include "dbConnect.php";
 
-$data = $pdo->query("SELECT name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i') FROM restaurant")->fetchAll(PDO::FETCH_ASSOC); ?>
+$data = $pdo->query("SELECT restaurantId, name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i') FROM restaurant")->fetchAll(PDO::FETCH_ASSOC); ?>
     
 
 <div class="main-page-container">
-
     <input type="text" id="restaurantSearchInput" placeholder="Find restaruant">
-
     <div id="restaurantCards">
 
     <?php foreach ($data as $restaurant){
         echo <<<HTML
-
-            <div class="restaurantCard" data-restaurant-name={$restaurant['name']}>
+            <a href="restaurantDetailPage.php?restaurantId={$restaurant['restaurantId']}" class="restaurantCard" data-restaurant-name="{$restaurant['name']}">
                 <h3>{$restaurant['name']}</h3>
                 <p>{$restaurant['description']}</p>
                 <p>{$restaurant['town']}</p>
                 <p>{$restaurant["TIME_FORMAT(openingTime, '%H:%i')"]} - {$restaurant["TIME_FORMAT(closureTime, '%H:%i')"]}</p>
-                <button>Enter</button>
-            </div>
+            </a>
 HTML;
     }?>
     </div>
