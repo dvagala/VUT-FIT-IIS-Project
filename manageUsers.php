@@ -11,7 +11,7 @@ echo <<<HTML
 
 HTML;
 if(!isset($_POST['filter'])){
-    $data = $pdo->query("SELECT * FROM person")->fetchAll(PDO::FETCH_ASSOC);
+    $data = $pdo->query("SELECT personId,Name,mail,state FROM person")->fetchAll(PDO::FETCH_ASSOC);
     print_Persons($data);
 
 }
@@ -23,47 +23,48 @@ if(isset($_POST['submit']) && $_POST['ChangeRole']!=''){
 }
 
 if(isset($_POST['filter'])){
-    $data = $pdo->query("SELECT * FROM person")->fetchAll(PDO::FETCH_ASSOC);
+    $data = $pdo->query("SELECT personId,Name,mail,state FROM person")->fetchAll(PDO::FETCH_ASSOC);
     $final_data = [];
     if($_POST['Role']=="All" and $_POST['nameLookup']=='' and $_POST['idLookup']==''){
 
     }
     else{
+        foreach($data as $row){
+            $search_row = array_map('strtolower', $row);
+            $role_push = false;
+            $name_push = false;
+            $id_push = false;
 
-        if($_POST['Role']!="All"){
-            foreach($data as $row){
-                if(in_array($_POST['Role'], $row)){
-                    array_push($final_data,$row);
+            if($_POST['Role']!="All") {
+                if ($_POST['Role'] ==  $row['state']) {
+                    $role_push = true;
                 }
-
             }
-            $data = $final_data;
-            $final_data = [];
-        }
-        if($_POST['nameLookup']!=''){
-            foreach($data as $row){
-
-                if(in_array($_POST['nameLookup'], $row)){
-                    array_push($final_data,$row);
+            else{
+                $role_push = true;
+            }
+            if($_POST['nameLookup']!=''){
+                if(strpos($search_row["Name"],strtolower($_POST['nameLookup'])) !== false){
+                   $name_push = true;
                 }
-
             }
-            $data = $final_data;
-            $final_data = [];
-        }
-        if($_POST['idLookup']!=''){
-
-            foreach($data as $row){
-
-
-                if(in_array($_POST['idLookup'], $row)){
-                    array_push($final_data,$row);
+            else{
+                $name_push = true;
+            }
+            if($_POST['idLookup']!=''){
+                if($_POST['idLookup'] == $row['personId']){
+                    $id_push = true;
                 }
-
             }
-            $data = $final_data;
-            $final_data = [];
+            else{
+                $id_push = true;
+            }
+            if($role_push and $name_push and $id_push){
+                array_push($final_data, $row);
+            }
+
         }
+        $data = $final_data;
 
     }
     print_Persons($data);
