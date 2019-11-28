@@ -2,6 +2,7 @@
 <link rel="stylesheet" type="text/css" href="styles/restaurantDetailPageStyle.css">
 
 
+
 <?php
 
 include "header.php";
@@ -52,15 +53,54 @@ HTML;
                 echo <<<HTML
                 </td>
                 <td>{$item["price"]} €</td>
+                <td><button onclick="additemToShoppingCart('{$item["name"]}','{$item["price"]}')">&#128722;</button></td>
             </tr>
 HTML;
         }
     }
+}?>
+
+    </table>
+    <div class="shopping_cart" style="position:absolute; right:0; top:0;">
+        <Label>Shopping cart</Label>
+        <table class="shopping-cart-table">
+        <tr><td>Total</td><td>0.00€</td><td></td></tr>
+        </table>
+
+        <form>
+            <button type="submit">Place Order</button>
+        </form>
+    </div>
+</div> 
+
+<script>
+
+itemsInShoppingCart = [];
+
+function additemToShoppingCart(name, price){
+    var newItem = {name:name, price:price};
+    itemsInShoppingCart.push(newItem);
+    updateShoppingCart();
 }
 
-echo "</table>";
+function updateShoppingCart(){
+    $(".shopping-cart-table tr").remove();
 
+    var orderedItemsHTML = "";
+    var sumUpPrice = 0;
 
-?>
+    itemsInShoppingCart.forEach(function(item, index){
+        orderedItemsHTML += "<tr><td>" + item["name"] + "</td><td>" + item["price"] + "€</td><td><button onClick=\"deleteItemInShoppingCart(" + index + ")\">x</button></td></tr>"
+        sumUpPrice += parseFloat(item["price"]);
+    });
 
-</div> 
+    $(".shopping-cart-table").append(orderedItemsHTML); 
+    $(".shopping-cart-table").append("<tr><td>Total</td><td>" + sumUpPrice.toFixed(2) +"€</td><td></td></tr>"); 
+}
+
+function deleteItemInShoppingCart(index){
+    itemsInShoppingCart.splice(index, 1);
+    updateShoppingCart();
+}
+
+</script>

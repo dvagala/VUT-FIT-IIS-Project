@@ -5,3 +5,7 @@
 .items-table tr h3{
     padding-top: 30px;
 }
+
+.shopping-cart-table td{
+    padding-right: 15px;
+}
