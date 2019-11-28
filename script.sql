@@ -81,7 +81,7 @@ CREATE TABLE `order` (
   additionalInfo TEXT,
   state ENUM("unconfirmed", "confirmed", "delivery"),
   dinerId INT NOT NULL,
-  driverId INT NOT NULL,
+  driverId INT NULL,
   FOREIGN KEY (dinerId) REFERENCES person(personId),
   FOREIGN KEY (driverId) REFERENCES person(personId)
 );
@@ -170,7 +170,12 @@ insert into person values (13, "Marek", "Trnava", "Skusobka", 61200, "0985456789
 insert into person values (14, "Michal", "Trnava", "Johna Dopieru 26/a", 61200, "0985456789", "michal@gmail.com", "hashedPassword", "driver");
 
 
-insert into `order` values (20, "Please call me 20min before delivery", "unconfirmed", 10, 11);
+insert into `order` values (20, "Please call me 20min before delivery", "unconfirmed", 10, null);
+insert into `order` values (21, "Please call me 20min before delivery", "unconfirmed", 11, null);
+insert into `order` values (22, "Please call me 20min before delivery", "unconfirmed", 12, null);
+insert into `order` values (23, "Please call me 20min before delivery", "unconfirmed", 13, null);
+insert into `order` values (24, "Please call me 20min before delivery", "unconfirmed", 14, null);
+
 insert into orderHasItem values (20, 102);
 insert into orderHasItem values (20, 103);
 insert into orderHasItem values (20, 104);
@@ -186,3 +191,9 @@ select * from person;
 
 select * from item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId
 where restaurantHasItem.restaurantId = 1 and item.type = "dailyMenu";
+
+SELECT personId,Name, COUNT(orderId) as pocet FROM person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver' group by personId,Name order by Count(orderId);
+
+SELECT DISTINCT personId,Name, orderId from person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver';
+
+SELECT orderId,O.state,Name FROM `order` O LEFT JOIN person on driverId = personId;

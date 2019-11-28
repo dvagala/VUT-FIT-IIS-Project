@@ -60,7 +60,7 @@
 
                         <?php if(isset($_SESSION["userId"])){?>
                             <li><a href="">My profile</a></li>
-                            <li><a href="">Manage drivers</a></li>
+                            <li><a href="manageDrivers.php">Manage drivers</a></li>
                             <li><a href="manageUsers.php">Manage users</a></li>
                             <li><a href="processLogout.php">Logout</a></li>
                         <?php } ?>
