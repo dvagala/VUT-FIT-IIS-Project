@@ -53,7 +53,7 @@ HTML;
                 echo <<<HTML
                 </td>
                 <td>{$item["price"]} €</td>
-                <td><button onclick="additemToShoppingCart('{$item["name"]}','{$item["price"]}')">&#128722;</button></td>
+                <td><button onclick="additemToShoppingCart('{$item["name"]}','{$item["price"]}','{$item["itemId"]}')">&#128722;</button></td>
             </tr>
 HTML;
         }
@@ -61,15 +61,13 @@ HTML;
 }?>
 
     </table>
-    <div class="shopping_cart" style="position:absolute; right:0; top:0;">
+    <div class="shopping-cart">
         <Label>Shopping cart</Label>
         <table class="shopping-cart-table">
         <tr><td>Total</td><td>0.00€</td><td></td></tr>
         </table>
 
-        <form>
-            <button type="submit">Place Order</button>
-        </form>
+        <button onclick="goToCheckout()" id="ckeckout-button" type="submit" disabled>Go to checkout</button>
     </div>
 </div> 
 
@@ -77,8 +75,8 @@ HTML;
 
 itemsInShoppingCart = [];
 
-function additemToShoppingCart(name, price){
-    var newItem = {name:name, price:price};
+function additemToShoppingCart(name, price, itemId){
+    var newItem = {name:name, price:price, itemId:itemId};
     itemsInShoppingCart.push(newItem);
     updateShoppingCart();
 }
@@ -94,13 +92,29 @@ function updateShoppingCart(){
         sumUpPrice += parseFloat(item["price"]);
     });
 
+    if(itemsInShoppingCart.length == 0){
+        $('#ckeckout-button').attr("disabled", true);
+    }else{
+        $('#ckeckout-button').attr("disabled", false);
+    }
+
     $(".shopping-cart-table").append(orderedItemsHTML); 
     $(".shopping-cart-table").append("<tr><td>Total</td><td>" + sumUpPrice.toFixed(2) +"€</td><td></td></tr>"); 
-}
+}   
 
 function deleteItemInShoppingCart(index){
     itemsInShoppingCart.splice(index, 1);
     updateShoppingCart();
+}
+
+function goToCheckout(){
+    var parameters = "";
+
+    itemsInShoppingCart.forEach(function(item){
+        parameters += "items[]=" + item["itemId"] + "&";
+    });    
+
+    location.href = "checkoutPage.php?" + parameters;
 }
 
 </script>

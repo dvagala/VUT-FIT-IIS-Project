@@ -18,7 +18,24 @@
         <div class="main-header">
             <p><a href="index.php">Food delivery</a></p>
 
-            <?php session_start(); ?>
+            <?php session_start();
+
+            include "dbConnect.php";
+
+            if(!isset($_COOKIE["userId"]) && !isset($_SESSION["userId"])){
+                $pdo->query("INSERT INTO person (state) VALUES (\"unregistered\");");
+                setcookie("userId", $pdo->lastInsertId(), time() + (10 * 365 * 24 * 60 * 60));
+            }
+            
+            if(isset($_COOKIE["userId"])){
+                echo "cockie: ".$_COOKIE["userId"];
+            }
+
+            if(isset($_SESSION["userId"])){
+                echo "session: ".$_SESSION["userId"];
+            }
+
+            ?>
 
             <div class="header-nav">
                 <?php if(!isset($_SESSION["userId"])){?>
@@ -30,13 +47,13 @@
             </div>
                 <div class="login-dropdown">
                     <form class="login-form" action="processLogin.php" method="post">
-                         <input type="email" name="userEmail" placeholder="Email" class="display-block" value=
+                         <input type="email" name="userEmail" placeholder="Email" class="display-block" required value=
                          <?php echo "\"";
                             if(isset($_GET["userEmail"])) {
                                 echo $_GET["userEmail"];
                             }
                             echo "\""; ?>>
-                         <input type="password" name="userPassword" placeholder="Password" class="display-block">
+                         <input type="password" name="userPassword" placeholder="Password" required class="display-block">
                         <button class="login-form-button">Login</button>
                         <?php if(isset($_GET['loginError'])){ ?>
                                 <style>

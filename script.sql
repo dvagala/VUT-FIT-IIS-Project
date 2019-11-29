@@ -66,6 +66,7 @@ DO
 CREATE TABLE person (
   personId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   Name TINYTEXT,
+  Surname TINYTEXT,
   Town TINYTEXT,
   Street TINYTEXT,
   ZIP INT,
@@ -165,11 +166,11 @@ insert into itemWillBeInMenu values (103, DATE("2019-11-11"));
 insert into itemWillBeInMenu values (104, DATE("2019-11-12"));
 
 
-insert into person values (10, "Jakub", "brno", "purkynova", 61200, "0985456789", "jakub@gmail.com", "hashedPassword", "admin");
-insert into person values (11, "Dominik", "brno", "purkynova", 61200, "0985456789", "dominik@gmail.com", "hashedPassword", "operator");
-insert into person values (12, "Peter", "Jaslovske Bohunice", "Atomka", 61200, "0985456789", "peter@gmail.com", "hashedPassword", "diner");
-insert into person values (13, "Marek", "Trnava", "Skusobka", 61200, "0985456789", "marek@gmail.com", "hashedPassword", "diner");
-insert into person values (14, "Michal", "Trnava", "Johna Dopieru 26/a", 61200, "0985456789", "michal@gmail.com", "hashedPassword", "driver");
+insert into person values (10, "Jakub", "someSUrname", "brno", "purkynova", 61200, "0985456789", "jakub@gmail.com", "hashedPassword", "admin");
+insert into person values (11, "Dominik", "someSUrname", "brno", "purkynova", 61200, "0985456789", "dominik@gmail.com", "hashedPassword", "operator");
+insert into person values (12, "Peter", "someSUrname", "Jaslovske Bohunice", "Atomka", 61200, "0985456789", "peter@gmail.com", "hashedPassword", "diner");
+insert into person values (13, "Marek", "someSUrname", "Trnava", "Skusobka", 61200, "0985456789", "marek@gmail.com", "hashedPassword", "diner");
+insert into person values (14, "Michal", "someSUrname", "Trnava", "Johna Dopieru 26/a", 61200, "0985456789", "michal@gmail.com", "hashedPassword", "driver");
 
 
 insert into `order` values (20, "Please call me 20min before delivery", "unconfirmed", 10, null,1);

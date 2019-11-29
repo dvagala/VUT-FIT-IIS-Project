@@ -16,14 +16,18 @@
         header("location: signUpPage.php?signUpError=takenEmail&userName={$_POST["userName"]}&userSurname={$_POST["userSurname"]}&userTown={$_POST["userTown"]}&userStreet={$_POST["userStreet"]}&userZIP={$_POST["userZIP"]}&userPhoneNumber={$_POST["userPhoneNumber"]}&userEmail=");
         return;
     }
-
-    // Add new user to Db
-    $stmt = $pdo->prepare("INSERT INTO person (Name, Town, Street, ZIP, phoneNumber, mail, hashedPassword, state) VALUES (?, ?, ?, ?, ?, ?, ?, \"diner\");");
-    $stmt->execute([$_POST["userName"]." ".$_POST["userSurname"], $_POST["userTown"], $_POST["userStreet"], $_POST["userZIP"], $_POST["userPhoneNumber"], $_POST["userEmail"], password_hash($_POST["userPassword"], PASSWORD_DEFAULT)]);
-
-    $newUserId = $pdo->lastInsertId();
     
-    $_SESSION["userId"] = $newUserId;
-    $_SESSION["userEmail"] = $_POST["userEmail"];
+    // Add new user to Db
+    if(isset($_COOKIE["userId"])){
+        $stmt = $pdo->prepare("UPDATE person SET Name = ?, Surname = ?, Town = ?, Street = ?, ZIP = ?, phoneNumber = ?, mail = ?, hashedPassword = ?, state = \"diner\" WHERE personId = ?;");
+        $stmt->execute([$_POST["userName"], $_POST["userSurname"], $_POST["userTown"], $_POST["userStreet"], intval($_POST["userZIP"]), $_POST["userPhoneNumber"], $_POST["userEmail"], password_hash($_POST["userPassword"], PASSWORD_DEFAULT), intval($_COOKIE["userId"])]);
+        $_SESSION["userId"] = $_COOKIE["userId"];
+        setcookie("userId", "", time() - 1);
+    }else{
+        $stmt = $pdo->prepare("INSERT INTO person (Name, Surname, Town, Street, ZIP, phoneNumber, mail, hashedPassword, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, \"diner\");");
+        $stmt->execute([$_POST["userName"], $_POST["userSurname"], $_POST["userTown"], $_POST["userStreet"], $_POST["userZIP"], $_POST["userPhoneNumber"], $_POST["userEmail"], password_hash($_POST["userPassword"], PASSWORD_DEFAULT)]);
+        $_SESSION["userId"] = $pdo->lastInsertId();
+    }
+
     header("location: index.php");
 ?>

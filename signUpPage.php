@@ -10,7 +10,7 @@ include "header.php";
         <table>
             <tr>
                 <td><label type="text" >Name</input></td>
-                <td><input type="text" value=
+                <td><input type="text" required value=
                 <?php echo "\"";
                     if(isset($_GET["userName"])) {
                         echo $_GET["userName"];
@@ -20,7 +20,7 @@ include "header.php";
             </tr>
             <tr>
                 <td><label type="text">Surname</input></td>
-                <td><input type="text" value=
+                <td><input type="text" required value=
                 <?php echo "\"";
                     if(isset($_GET["userSurname"])) {
                         echo $_GET["userSurname"];
@@ -30,7 +30,7 @@ include "header.php";
             </tr>
             <tr>
                 <td><label type="text">Town</input></td>
-                <td><input type="text" value=
+                <td><input type="text" required value=
                 <?php echo "\"";
                     if(isset($_GET["userTown"])) {
                         echo $_GET["userTown"];
@@ -40,7 +40,7 @@ include "header.php";
             </tr>
             <tr>
                 <td><label type="text">Street</input></td>
-                <td><input type="text" value=
+                <td><input type="text" required value=
                 <?php echo "\"";
                     if(isset($_GET["userStreet"])) {
                         echo $_GET["userStreet"];
@@ -50,7 +50,7 @@ include "header.php";
             </tr>
             <tr>
                 <td><label type="text">ZIP</input></td>
-                <td><input type="text" pattern="\d{5}" value=
+                <td><input type="text" pattern="\d{5}" required value=
                 <?php echo "\"";
                     if(isset($_GET["userZIP"])) {
                         echo $_GET["userZIP"];
@@ -60,7 +60,7 @@ include "header.php";
             </tr>
             <tr>
                 <td><label type="text">Phone number</input></td>
-                <td><input type="tel" value=
+                <td><input type="tel" required value=
                 <?php echo "\"";
                     if(isset($_GET["userPhoneNumber"])) {
                         echo $_GET["userPhoneNumber"];
@@ -70,7 +70,7 @@ include "header.php";
             </tr>
             <tr>
                 <td><label type="text">Email</input></td>
-                <td><input type="email" value=
+                <td><input type="email" required value=
                 <?php echo "\"";
                     if(isset($_GET["userEmail"])) {
                         echo $_GET["userEmail"];
