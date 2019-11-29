@@ -57,11 +57,19 @@
                 <div class="menu-dropdown">
                     <ul>
                         <li><a href="">My orders</a></li>
+                        <?php if(isset($_SESSION["userId"])){
+                            include "dbConnect.php";
+                            $state = $pdo->query("SELECT state FROM person WHERE personId={$_SESSION['userId']}")->fetchAll(PDO::FETCH_ASSOC);
+                            $state = $state[0]['state'];?>
 
-                        <?php if(isset($_SESSION["userId"])){?>
                             <li><a href="">My profile</a></li>
+                            <?php if($state=='driver' or $state=='admin'){?>
+                            <li><a href="manageOrders.php">Manage orders</a></li>
+                            <?php }if($state=='operator' or $state=='admin'){?>
                             <li><a href="manageDrivers.php">Manage drivers</a></li>
+                            <?php }if($state=='admin'){?>
                             <li><a href="manageUsers.php">Manage users</a></li>
+                            <?php } ?>
                             <li><a href="processLogout.php">Logout</a></li>
                         <?php } ?>
                     </ul>
