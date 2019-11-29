@@ -2,11 +2,33 @@
 
 include "header.php";
 
+
 if(isset($_SESSION["userId"])){
     $stmt = $pdo->prepare("SELECT Name, Surname, Town, Street, ZIP, phoneNumber FROM person WHERE personId = ?");
     $stmt->execute([intval($_SESSION["userId"])]);
     $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+
+if(isset($_SESSION["userId"])){
+    $stmt = $pdo->prepare("INSERT INTO `order` (dinerId, restaurantId, state) VALUES (?, ?, \"notYetPlaced\");");
+    $stmt->execute([$_SESSION["userId"], $_GET["restaurantId"]]);
+}else if(isset($_COOKIE["userId"])){
+    $stmt = $pdo->prepare("INSERT INTO `order` (dinerId, restaurantId, state) VALUES (?, ?, \"notYetPlaced\");");
+    $stmt->execute([$_COOKIE["userId"], $_GET["restaurantId"]]);
+}else{
+    header("location: checkoutPage.php?checkoutError");      
+    return;
+}
+
+$orderId = $pdo->lastInsertId();
+
+foreach ($_GET["items"] as $itemId) {
+    $stmt = $pdo->prepare("INSERT INTO orderHasItem (orderId, itemId) VALUES (?, ?);");
+    $stmt->execute([intval($orderId), $itemId]);
+}
+
+
 
 ?>
 
@@ -14,6 +36,7 @@ if(isset($_SESSION["userId"])){
     <h2>Specify the contact details for order</h2>
     <br>
     <form action="processPlaceOrder.php" method="post">
+        <input type="hidden" name="orderId" value=<?php echo "\"".$orderId."\"";?>>
         <table>
             <tr>
                 <td><label type="text" >Name</input></td>
@@ -77,12 +100,21 @@ if(isset($_SESSION["userId"])){
             </tr>
             <tr>
                 <td><label type="text">Order additional info</input></td>
-                <td><textarea name="AdditionalInfo" cols="25" rows="3"></textarea></td>
+                <td><textarea name="additionalInfo" cols="25" rows="3"></textarea></td>
             </tr>            
             <tr>
                 <td><?php if(isset($_GET["checkoutError"])){echo "Error!";} ?></td>
                 <td><button type="submit">Place the order</button></td>
+                <td><button id="cancel-order-button" type="button">Cancel order</button></td>
             </tr>
         </table>
     </form> 
 </div>
+
+<script>
+
+$("#cancel-order-button").click(function(){
+    location.href = "checkoutPage.php?" + parameters;
+});
+
+</script>

@@ -80,7 +80,7 @@ CREATE TABLE person (
 CREATE TABLE `order` (
   orderId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   additionalInfo TEXT,
-  state ENUM("unconfirmed", "confirmed", "delivery"),
+  state ENUM("notYetPlaced", "placedButNotAssignedToDriver", "assignedToDriver", "BeingDelivered"),
   dinerId INT NOT NULL,
   driverId INT NULL,
   restaurantId INT NOT NULL,
@@ -173,11 +173,11 @@ insert into person values (13, "Marek", "someSUrname", "Trnava", "Skusobka", 612
 insert into person values (14, "Michal", "someSUrname", "Trnava", "Johna Dopieru 26/a", 61200, "0985456789", "michal@gmail.com", "hashedPassword", "driver");
 
 
-insert into `order` values (20, "Please call me 20min before delivery", "unconfirmed", 10, null,1);
-insert into `order` values (21, "Please call me 20min before delivery", "unconfirmed", 11, null,2);
-insert into `order` values (22, "Please call me 20min before delivery", "unconfirmed", 12, null,3);
-insert into `order` values (23, "Please call me 20min before delivery", "unconfirmed", 13, null,4);
-insert into `order` values (24, "Please call me 20min before delivery", "unconfirmed", 14, null,5);
+insert into `order` values (20, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 10, null,1);
+insert into `order` values (21, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 11, null,2);
+insert into `order` values (22, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 12, null,3);
+insert into `order` values (23, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 13, null,4);
+insert into `order` values (24, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 14, null,5);
 
 insert into orderHasItem values (20, 102);
 insert into orderHasItem values (20, 103);
@@ -202,3 +202,5 @@ SELECT DISTINCT personId,Name, orderId from person LEFT JOIN `order` on person.p
 SELECT orderId,O.state,Name FROM `order` O LEFT JOIN person on driverId = personId;
 
 SELECT R.name as r_name,R.town as r_town,R.street as r_street,orderId,P.Name,P.Town,P.Street,P.personId FROM `order` LEFT JOIN person D on `order`.driverId = D.personId INNER JOIN person P on `order`.dinerId = P.personId JOIN restaurant R on R.restaurantId=`order`.restaurantId where D.personId=14;
+
+update person set state = "admin" where mail = "w@w";
