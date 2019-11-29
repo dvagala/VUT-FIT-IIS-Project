@@ -1,10 +1,9 @@
 .restaurant-td{
     text-align: left;
-    padding-right:20px;
     font-size: 30px;
     color : darkcyan;
     font-family: "DejaVu Serif", serif;
-    border-bottom: 1px dotted teal;
+
 
 }
 
@@ -14,9 +13,14 @@
     font-weight: bold;
 }
 
+#orderCards{
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .button-td{
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     text-align: center;
     border-bottom: 1px solid black;
 }
@@ -25,6 +29,7 @@
     margin-left: 20px;
     margin-right: 20px;
     table-layout: fixed;
+    width: 40%;
 }
 .order-td{
     text-align: left;
