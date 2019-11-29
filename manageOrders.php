@@ -17,7 +17,9 @@ if (isset($_POST['delivered'])){
 }
 
 function print_orders($orders){
-
+    if(empty($orders)){
+        echo "<p style='margin-left:20px'>No orders are assigned to you!</p>";
+    }
     foreach($orders as $order){
         $id = $order['orderId'];
         echo <<<HTML

@@ -33,12 +33,18 @@ function print_orders_and_drivers($orders,$drivers){
             array_push($unnasigned,$order);
         }
     }
+    if(empty($orders)){
+        echo "<p style='margin-left:30px'>No orders to be assigned!</p>";
+    }
     echo "</table><br>";
 
     echo "<p class='orders-p'>Assigned orders</p><br>";
     echo "<table class=\"person-table\"> ";
     foreach ($unnasigned as $order){
         print_order($order,$drivers,true);
+    }
+    if(empty($unnasigned)){
+        echo "<p style='margin-left:30px'> No orders are assigned at the moment!</p>";
     }
     echo "</table>";
         }
