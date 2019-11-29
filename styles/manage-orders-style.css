@@ -1,0 +1,31 @@
+.restaurant-td{
+    text-align: left;
+    padding-right:20px;
+    font-size: 30px;
+    color : darkcyan;
+    font-family: "DejaVu Serif", serif;
+    border-bottom: 1px dotted teal;
+
+}
+
+.info-td{
+    text-align: left;
+    padding-right:20px;
+    font-weight: bold;
+}
+
+.button-td{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    border-bottom: 1px solid black;
+}
+
+.restaurant-table {
+    margin-left: 20px;
+    margin-right: 20px;
+    table-layout: fixed;
+}
+.order-td{
+    text-align: left;
+}
