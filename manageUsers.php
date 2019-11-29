@@ -1,9 +1,11 @@
+<link rel="stylesheet" href="styles/manage-users-style.css">
+<div class="main-page-container">
 <?php
 include "header.php";
 include "dbConnect.php";
 echo <<<HTML
 <head>
-<link rel="stylesheet" href="styles/manage-users-style.css">
+
 <title>Manage Users</title>
 
 </head>
@@ -137,3 +139,4 @@ HTML;
 
 ?>
 
+</div>

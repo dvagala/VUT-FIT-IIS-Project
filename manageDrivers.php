@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="styles/manage-users-style.css">
+<div class="main-page-container">
 <?php
 include "header.php";
 include "dbConnect.php";
@@ -13,10 +14,8 @@ print_orders_and_drivers($orders,$drivers);
 
 if(isset($_POST['submit']) && $_POST['AssignDriver']!=''){
     $ids = explode('_',$_POST['AssignDriver']);// $ids[1] =orderId, $ids[2] = driver_Id
-    $sql = "UPDATE `order` SET state='confirmed' WHERE orderId=$ids[1]";
-    $pdo->query($sql);
-    $sql = "UPDATE `order` SET driverId=$ids[2] WHERE orderId=$ids[1]";
-    $pdo->query($sql);
+    $pdo->query("UPDATE `order` SET state='confirmed' WHERE orderId=$ids[1]");
+    $pdo->query("UPDATE `order` SET driverId=$ids[2] WHERE orderId=$ids[1]");
     echo "<meta http-equiv='refresh' content='0'>";
 
 }
@@ -85,3 +84,5 @@ HTML;
 
     }
 }
+?>
+</div>
