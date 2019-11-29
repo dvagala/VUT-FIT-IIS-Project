@@ -82,8 +82,10 @@ CREATE TABLE `order` (
   state ENUM("unconfirmed", "confirmed", "delivery"),
   dinerId INT NOT NULL,
   driverId INT NULL,
+  restaurantId INT NOT NULL,
   FOREIGN KEY (dinerId) REFERENCES person(personId),
-  FOREIGN KEY (driverId) REFERENCES person(personId)
+  FOREIGN KEY (driverId) REFERENCES person(personId),
+  FOREIGN KEY (restaurantId) REFERENCES restaurant(restaurantId)
 );
 
 CREATE TABLE orderHasItem (
@@ -170,11 +172,11 @@ insert into person values (13, "Marek", "Trnava", "Skusobka", 61200, "0985456789
 insert into person values (14, "Michal", "Trnava", "Johna Dopieru 26/a", 61200, "0985456789", "michal@gmail.com", "hashedPassword", "driver");
 
 
-insert into `order` values (20, "Please call me 20min before delivery", "unconfirmed", 10, null);
-insert into `order` values (21, "Please call me 20min before delivery", "unconfirmed", 11, null);
-insert into `order` values (22, "Please call me 20min before delivery", "unconfirmed", 12, null);
-insert into `order` values (23, "Please call me 20min before delivery", "unconfirmed", 13, null);
-insert into `order` values (24, "Please call me 20min before delivery", "unconfirmed", 14, null);
+insert into `order` values (20, "Please call me 20min before delivery", "unconfirmed", 10, null,1);
+insert into `order` values (21, "Please call me 20min before delivery", "unconfirmed", 11, null,2);
+insert into `order` values (22, "Please call me 20min before delivery", "unconfirmed", 12, null,3);
+insert into `order` values (23, "Please call me 20min before delivery", "unconfirmed", 13, null,4);
+insert into `order` values (24, "Please call me 20min before delivery", "unconfirmed", 14, null,5);
 
 insert into orderHasItem values (20, 102);
 insert into orderHasItem values (20, 103);
@@ -197,3 +199,5 @@ SELECT personId,Name, COUNT(orderId) as pocet FROM person LEFT JOIN `order` on p
 SELECT DISTINCT personId,Name, orderId from person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver';
 
 SELECT orderId,O.state,Name FROM `order` O LEFT JOIN person on driverId = personId;
+
+SELECT R.name as r_name,R.town as r_town,R.street as r_street,orderId,P.Name,P.Town,P.Street,P.personId FROM `order` LEFT JOIN person D on `order`.driverId = D.personId INNER JOIN person P on `order`.dinerId = P.personId JOIN restaurant R on R.restaurantId=`order`.restaurantId where D.personId=14;
