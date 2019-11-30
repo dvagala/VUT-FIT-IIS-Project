@@ -1,9 +1,9 @@
 drop table if exists restaurantHasItem;
 drop table if exists itemWillBeInMenu;
 drop table if exists orderHasItem;
+drop table if exists `order`;
 drop table if exists restaurant;
 drop table if exists item;
-drop table if exists `order`;
 drop table if exists person;
 
 drop event if exists updateDailyMenuItemsEvent;
