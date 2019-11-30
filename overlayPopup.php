@@ -23,13 +23,28 @@ if(isset($_GET["popUp"])){ ?>
                     <h3>You have signed up successfully!</h3>
                 </div>
             <?php }
+                        else if($_GET["popUp"] == "signUpSuccess"){ ?>
+                <div id="popupText">
+                    <h3>You have signed up successfully!</h3>
+                </div>
+            <?php }
+            else if($_GET["popUp"] == "createRestaruantSuccess"){ ?>
+                <div id="popupText">
+                    <h3>Restaurant created successfully!</h3>
+                </div>
+            <?php }
+            else if($_GET["popUp"] == "deleteRestaruantSuccess"){ ?>
+                <div id="popupText">
+                    <h3>Restaurant deleted successfully!</h3>
+                </div>
+            <?php }              
             else if($_GET["popUp"] == "error"){ ?>
                 <div id="popupText">
                     <h3>An error happend!</h3>
                     <small>Sorry</small>
                 </div>
             <?php } ?>
-
+            
             </div>
         </div>
         <div id="background-overlay"></div>

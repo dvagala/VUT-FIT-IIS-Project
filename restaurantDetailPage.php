@@ -4,7 +4,6 @@
 <?php
 
 include "header.php";
-include "dbConnect.php";
 
 $restaurantId = $_GET["restaurantId"];
 $stmt = $pdo->prepare("SELECT name, description, town, street, zip, phoneNumber, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i') FROM restaurant WHERE restaurantId = ?");
@@ -29,7 +28,7 @@ if(isset($_SESSION["userId"])){
     if($user["state"] == "admin" || $user["state"] == "operator"){ ?>
     <form action="editRestaurantPage.php" method="get">
         <input type="hidden" name="restaurantId" value=<?php echo "\"".$restaurantId."\""; ?>>
-        <button>Edit restaurant details</button>
+        <button>Edit restaurant</button>
     </form>
     <?php }
 }
@@ -45,10 +44,15 @@ foreach ($itemTypes as $itemType) {
     $groupedItems = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 
     if(!empty($groupedItems)){
-        echo "<tr><td><h3>{$itemType}</h3></td></tr>";
+        if($itemType == "dailyMenu"){
+            echo "<tr><td><h3>Today's menu</h3></td></tr>";
+        }else{
+            echo "<tr><td><h3>{$itemType}</h3></td></tr>";
+        }
 
         foreach ($groupedItems as $item){
-        echo <<<HTML
+
+            echo <<<HTML
             <tr>
                 <td>{$item["name"]}</td>
                 <td>
@@ -70,7 +74,23 @@ HTML;
     }
 }?>
 
-    </table>
+<?php if(isset($_SESSION["userId"])){
+
+    if($user["state"] == "admin" || $user["state"] == "operator"){ ?>
+        <tr><td></td><td>
+            <form action="addNewItemPage.php" method="get">
+                <input type="hidden" name="restaurantId" value=<?php echo "\"".$restaurantId."\""; ?>>
+                <button type="submit">Add new item</button>
+            </form>
+        </td></tr>
+    <?php }
+} ?>
+
+</table> 
+
+
+
+
     <div class="shopping-cart">
         <Label>Shopping cart</Label>
         <table class="shopping-cart-table">

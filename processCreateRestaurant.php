@@ -10,6 +10,5 @@
     $stmt = $pdo->prepare("INSERT INTO restaurant (name, description, town, street, zip, phoneNumber, openingTime, closureTime) VALUES (?, ?, ?, ?, ?, ?, TIME_FORMAT(?, '%H:%i'), TIME_FORMAT(?, '%H:%i'));");
     $stmt->execute([$_GET["name"], $_GET["description"], $_GET["town"], $_GET["street"], intval($_GET["zip"]), $_GET["phoneNumber"], $_GET["openingTime"], $_GET["closureTime"]]);
 
-    header("location: index.php");
-    return;
+    header("location: index.php?popUp=createRestaruantSuccess");
 ?>

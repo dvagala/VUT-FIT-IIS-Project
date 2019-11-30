@@ -56,4 +56,9 @@ $restaurant = $stmt->fetch(PDO::FETCH_ASSOC);
     </table>
 </form>
 
+<form action="processDeleteRestaurant.php">
+    <input type="hidden" name="restaurantId" value= <?php echo "\"".$restaurantId."\""; ?>>
+    <button type="submit">Delete restaurant</button>
+</form>
+
 </div>
