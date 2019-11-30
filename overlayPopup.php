@@ -37,7 +37,12 @@ if(isset($_GET["popUp"])){ ?>
                 <div id="popupText">
                     <h3>Restaurant deleted successfully!</h3>
                 </div>
-            <?php }              
+            <?php }      
+            else if($_GET["popUp"] == "addItemSuccess"){ ?>
+                <div id="popupText">
+                    <h3>Item added successfully!</h3>
+                </div>
+            <?php }                       
             else if($_GET["popUp"] == "error"){ ?>
                 <div id="popupText">
                     <h3>An error happend!</h3>
@@ -49,7 +54,7 @@ if(isset($_GET["popUp"])){ ?>
         </div>
         <div id="background-overlay"></div>
     </div>
-
+    
 <script>
 
 $(document).mousedown(function(e){ 

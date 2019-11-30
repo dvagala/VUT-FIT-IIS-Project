@@ -6,9 +6,6 @@ drop table if exists restaurant;
 drop table if exists item;
 drop table if exists person;
 
--- drop event if exists updateDailyMenuItemsEvent;
-
-
 -- CREATE USER 'iisUser'@'%' IDENTIFIED BY 'iisPassword';
 -- # GRANT ALL PRIVILEGES ON iisDb. * TO 'iisUser'@'%';
 -- # FLUSH PRIVILEGES;
@@ -32,7 +29,6 @@ CREATE TABLE item (
   picture TEXT,
   price DECIMAL(6,2),
   type ENUM("dailyMenu", "meal","sidedish", "sauce", "beverage"),
-  -- isInMenu BOOLEAN DEFAULT FALSE,
   isVegan BOOLEAN DEFAULT FALSE,
   isGlutenFree BOOLEAN DEFAULT FALSE
 );
@@ -45,23 +41,6 @@ CREATE TABLE restaurantHasItem (
   FOREIGN KEY (restaurantId) REFERENCES restaurant(restaurantId),
   FOREIGN KEY (itemId) REFERENCES item(itemId)
 );
-
-
--- CREATE TABLE itemWillBeInMenu (
---   itemId INT NOT NULL,
---   date DATE,
---   PRIMARY KEY (itemId, date),
---   FOREIGN KEY (itemId) REFERENCES item(itemId)
--- );
-
-
--- CREATE EVENT updateDailyMenuItemsEvent
--- ON SCHEDULE
---   EVERY 1 DAY
---   STARTS (TIMESTAMP(CURRENT_DATE) + INTERVAL 1 DAY)
--- DO
---   update item natural join itemWillBeInMenu set isInMenu = true
---   where date = CURRENT_DATE();
 
 CREATE TABLE person (
   personId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -108,33 +87,32 @@ insert into restaurant values (5, "forkysw", "some description", "Trnava", "purk
 insert into restaurant values (6, "forkyse", "some description", "Trnava", "purkynova", 61200, "0944456789", TIME("07:00:00"), TIME("17:00:00"));
 
 
-insert into item values (100, "Spaghetti and Meatballs", "Delicious spaghetti", "/img/spaghetti.jpg", 8.2, "dailyMenu", true, false);
-insert into item values (101, "lasagne", "lasagne decrip", "/img/lasagne.jpg", 6.3, "dailyMenu", false, false);
-insert into item values (102, "chilli con carne", "lasagne decrip", "/img/lasagne.jpg", 4.4, "dailyMenu", true, false);
-insert into item values (103, "Burritos", "lasagne decrip", "/img/lasagne.jpg", 7.9, "dailyMenu", true, false);
-insert into item values (120, "Burritos2", "lasagne decrip", "/img/lasagne.jpg", 7.9, "dailyMenu", true, false);
-insert into restaurantHasItem values (1, 120);
+insert into item values (100, "Spaghetti and Meatballs", "Delicious spaghetti", "uploads/spageti.jpg", 8.2, "dailyMenu", true, false);
+insert into item values (101, "lasagne", "lasagne decrip", "uploads/lasagne.jpg", 6.3, "dailyMenu", false, false);
+insert into item values (102, "chilli con carne", "lasagne decrip", "uploads/chilli.jpg", 4.4, "dailyMenu", true, false);
+
+insert into item values (116, "grilled chicken", "lasagne decrip", "uploads/chicken.jpg", 7.1, "meal", false, true);
+insert into item values (117, "salmon", "lasagne decrip", "uploads/salnom.jpg", 8.3, "meal", false, false);
+insert into item values (118, "pork", "lasagne decrip", "uploads/pork.jpg", 9.7, "meal", false, false);
+insert into item values (119, "pizza", "lasagne decrip", "uploads/pizza.jpg", 5.4, "meal", false, true);
 
 
-insert into item values (104, "spaghetti", "lasagne decrip", "/img/lasagne.jpg", 3.4, "sidedish", false, false);
-insert into item values (105, "rice", "lasagne decrip", "/img/lasagne.jpg", 2.7, "sidedish", false, false);
-insert into item values (106, "mashed potatoes", "lasagne decrip", "/img/lasagne.jpg", 3.6, "sidedish", false, false);
-insert into item values (107, "chips", "lasagne decrip", "/img/lasagne.jpg", 4.2, "sidedish", false, false);
+insert into item values (104, "spaghetti", "lasagne decrip", "uploads/spaghetiiplain.jpg", 3.4, "sidedish", false, false);
+insert into item values (105, "rice", "lasagne decrip", "uploads/rice.jpg", 2.7, "sidedish", false, false);
+insert into item values (106, "mashed potatoes", "lasagne decrip", "uploads/default.jpg", 3.6, "sidedish", false, false);
+insert into item values (107, "chips", "lasagne decrip", "uploads/default.jpg", 4.2, "sidedish", false, false);
 
-insert into item values (108, "majonese", "lasagne decrip", "/img/lasagne.jpg", 1.4, "sauce", false, false);
-insert into item values (109, "ketchup", "lasagne decrip", "/img/lasagne.jpg", 0.8, "sauce", false, false);
-insert into item values (110, "mustard", "lasagne decrip", "/img/lasagne.jpg", 0.9, "sauce", false, false);
-insert into item values (111, "lemon juice", "lasagne decrip", "/img/lasagne.jpg", 0.9, "sauce", false, false);
+insert into item values (108, "majonese", "lasagne decrip", "uploads/default.jpg", 1.4, "sauce", false, false);
+insert into item values (109, "ketchup", "lasagne decrip", "uploads/default.jpg", 0.8, "sauce", false, false);
+insert into item values (110, "mustard", "lasagne decrip", "uploads/default.jpg", 0.9, "sauce", false, false);
+insert into item values (111, "lemon juice", "lasagne decrip", "uploads/default.jpg", 0.9, "sauce", false, false);
 
-insert into item values (112, "Coca cola", "lasagne decrip", "/img/lasagne.jpg", 2.4, "beverage", false, false);
-insert into item values (113, "Beer", "lasagne decrip", "/img/lasagne.jpg", 3.2, "beverage", false, false);
-insert into item values (114, "Wine", "lasagne decrip", "/img/lasagne.jpg", 1.6, "beverage", false, false);
-insert into item values (115, "Soda", "lasagne decrip", "/img/lasagne.jpg", 0.5, "beverage", false, false);
+insert into item values (112, "Coca cola", "lasagne decrip", "uploads/default.jpg", 2.4, "beverage", false, false);
+insert into item values (113, "Beer", "lasagne decrip", "uploads/default.jpg", 3.2, "beverage", false, false);
+insert into item values (114, "Wine", "lasagne decrip", "uploads/default.jpg", 1.6, "beverage", false, false);
+insert into item values (115, "Soda", "lasagne decrip", "uploads/default.jpg", 0.5, "beverage", false, false);
 
-insert into item values (116, "grilled chicken", "lasagne decrip", "/img/lasagne.jpg", 7.1, "meal", false, true);
-insert into item values (117, "salmon", "lasagne decrip", "/img/lasagne.jpg", 8.3, "meal", false, false);
-insert into item values (118, "pork", "lasagne decrip", "/img/lasagne.jpg", 9.7, "meal", false, false);
-insert into item values (119, "pizza", "lasagne decrip", "/img/lasagne.jpg", 5.4, "meal", false, true);
+
 
 
 insert into restaurantHasItem values (1, 100);
@@ -161,13 +139,6 @@ insert into restaurantHasItem values (1, 116);
 insert into restaurantHasItem values (1, 117);
 insert into restaurantHasItem values (1, 118);
 insert into restaurantHasItem values (1, 119);
-
-
-
--- insert into itemWillBeInMenu values (102, DATE("2019-11-10"));
--- insert into itemWillBeInMenu values (103, DATE("2019-11-11"));
--- insert into itemWillBeInMenu values (104, DATE("2019-11-12"));
-
 
 insert into person values (10, "Jakub", "someSUrname", "brno", "purkynova", 61200, "0985456789", "jakub@gmail.com", "hashedPassword", "admin");
 insert into person values (11, "Dominik", "someSUrname", "brno", "purkynova", 61200, "0985456789", "w@w", "$2y$10$PqBa4hPSv2xdY4.XNtQvYuuyTh0YkYPzwGo2WWSdscnNFzr9HqLcm", "admin");
@@ -224,4 +195,3 @@ insert into restaurantHasItem values (4, 145);
 insert into restaurantHasItem values (4, 146);
 
 delete item, restaurantHasItem FROM item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId WHERE restaurantHasItem.restaurantId = 4;
--- delete item FROM item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId WHERE restaurantHasItem.restaurantId = 4;
