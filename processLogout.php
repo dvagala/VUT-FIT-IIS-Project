@@ -3,5 +3,11 @@
     session_unset();
     session_destroy();
 
-    header("location: index.php");
+    $previousUrl = basename($_SERVER['HTTP_REFERER']);
+
+    if($previousUrl == "manageDrivers.php" || $previousUrl == "manageOrders.php" || $previousUrl == "manageUsers.php"){
+        $previousUrl = "index.php";
+    }
+
+    header("location: ".$previousUrl);
 ?>

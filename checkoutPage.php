@@ -1,7 +1,12 @@
+
+<link rel="stylesheet" type="text/css" href="styles/checkoutPageStyle.css">
+
 <?php
 
 include "header.php";
 
+$_SESSION["items"] = $_GET["items"];
+$_SESSION["restaurantId"] = $_GET["restaurantId"];
 
 if(isset($_SESSION["userId"])){
     $stmt = $pdo->prepare("SELECT Name, Surname, Town, Street, ZIP, phoneNumber FROM person WHERE personId = ?");
@@ -10,33 +15,32 @@ if(isset($_SESSION["userId"])){
 }
 
 
-if(isset($_SESSION["userId"])){
-    $stmt = $pdo->prepare("INSERT INTO `order` (dinerId, restaurantId, state) VALUES (?, ?, \"notYetPlaced\");");
-    $stmt->execute([$_SESSION["userId"], $_GET["restaurantId"]]);
-}else if(isset($_COOKIE["userId"])){
-    $stmt = $pdo->prepare("INSERT INTO `order` (dinerId, restaurantId, state) VALUES (?, ?, \"notYetPlaced\");");
-    $stmt->execute([$_COOKIE["userId"], $_GET["restaurantId"]]);
-}else{
-    header("location: checkoutPage.php?checkoutError");      
-    return;
-}
-
-$orderId = $pdo->lastInsertId();
-
-foreach ($_GET["items"] as $itemId) {
-    $stmt = $pdo->prepare("INSERT INTO orderHasItem (orderId, itemId) VALUES (?, ?);");
-    $stmt->execute([intval($orderId), $itemId]);
-}
-
-
-
 ?>
 
 <div class="main-page-container">
+    <h2>Checkout</h2>
+    <table class="shopping-cart-table">
+        <?php 
+        
+        $totalPrice = 0;
+
+        foreach($_GET["items"] as $itemId){
+            $stmt = $pdo->prepare("SELECT name, price FROM item WHERE itemId = ?");
+            $stmt->execute([intval($itemId)]);
+            $itemData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            echo "<tr><td>".$itemData["name"]."</td><td>".number_format(floatval($itemData["price"]), 2, '.', '')." €</td></tr>";
+            $totalPrice += floatval($itemData["price"]);
+        }
+        
+        echo "<tr><td>Total</td><td>".number_format($totalPrice, 2, '.', '')." €</td></tr>";
+        
+        ?>
+    </table>
+
     <h2>Specify the contact details for order</h2>
     <br>
     <form action="processPlaceOrder.php" method="post">
-        <input type="hidden" name="orderId" value=<?php echo "\"".$orderId."\"";?>>
         <table>
             <tr>
                 <td><label type="text" >Name</input></td>
@@ -105,16 +109,8 @@ foreach ($_GET["items"] as $itemId) {
             <tr>
                 <td><?php if(isset($_GET["checkoutError"])){echo "Error!";} ?></td>
                 <td><button type="submit">Place the order</button></td>
-                <td><button id="cancel-order-button" type="button">Cancel order</button></td>
+                <td><a href=<?php echo "\"restaurantDetailPage.php?restaurantId=".$_GET["restaurantId"]."\""; ?>>Cancel order</a></td>
             </tr>
         </table>
     </form> 
 </div>
-
-<script>
-
-$("#cancel-order-button").click(function(){
-    location.href = "checkoutPage.php?" + parameters;
-});
-
-</script>

@@ -24,7 +24,12 @@
     }
 
     $_SESSION["userId"] = $person["personId"];
-    $_SESSION["userEmail"] = $_POST["userEmail"];
-    header("location: index.php");
 
+    $previousUrl = basename($_SERVER['HTTP_REFERER']);
+
+    if($previousUrl == "signUpPage.php"){
+        $previousUrl = "index.php";
+    }
+
+    header("location: ".$previousUrl);
 ?>
