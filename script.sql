@@ -206,3 +206,10 @@ SELECT R.name as r_name,R.town as r_town,R.street as r_street,orderId,P.Name,P.T
 update person set state = "admin" where mail = "w@w";
 
 UPDATE restaurant SET name = "smth", description = "a", town = "a", street = "a", zip = 12345, phoneNumber = "a", openingTime = TIME("07:00:00"), closureTime =TIME("07:00:00") WHERE restaurantId = 3;
+
+
+SELECT O.orderId,O.state, SUM(price)from `order` O NATURAL JOIN orderHasItem NATURAL JOIN item GROUP BY orderId,state;
+SELECT R.name,orderId,O.state FROM `order` O INNER JOIN person P on P.personId=O.dinerId LEFT JOIN restaurant R on O.restaurantId=R.restaurantId WHERE dinerId=10;
+SELECT i.name,i.description,picture,price, isVegan,isGlutenFree FROM `order` O NATURAL JOIN orderHasItem NATURAL JOIN item i  where orderId = 20
+
+SELECT * from person;
