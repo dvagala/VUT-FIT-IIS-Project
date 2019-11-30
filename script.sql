@@ -80,7 +80,7 @@ CREATE TABLE person (
 CREATE TABLE `order` (
   orderId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   additionalInfo TEXT,
-  state ENUM("notYetPlaced", "placedButNotAssignedToDriver", "assignedToDriver", "BeingDelivered"),
+  state ENUM("placedButNotAssignedToDriver", "assignedToDriver", "BeingDelivered"),
   dinerId INT NOT NULL,
   driverId INT NULL,
   restaurantId INT NOT NULL,

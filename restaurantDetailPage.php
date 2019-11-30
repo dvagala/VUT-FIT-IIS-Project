@@ -108,8 +108,14 @@ function deleteItemInShoppingCart(index){
 function goToCheckout(){
     var parameters = window.location.search.substring(1) + "&";
 
-    itemsInShoppingCart.forEach(function(item){
-        parameters += "items[]=" + item["itemId"] + "&";
+
+    itemsInShoppingCart.forEach(function(item, index){
+        parameters += "items[]=" + item["itemId"];
+        
+        if(index < itemsInShoppingCart.length - 1){
+            parameters += "&";
+        }
+
     });    
 
     location.href = "checkoutPage.php?" + parameters;

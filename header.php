@@ -33,7 +33,7 @@
                     <a href="signUpPage.php">Sign up</a>
                 <?php } ?>
 
-                <a class="menu-nav-link" href="#">Menu</a>
+                <a class="menu-nav-link"  href="#">Menu</a>
             </div>
                 <div class="login-dropdown">
                     <form class="login-form" action="processLogin.php" method="post">
@@ -100,7 +100,18 @@ $(function(){
     $(document).mousedown(function(e){ 
         if($(e.target).closest(".login-nav-link").length === 0){
             if ($(e.target).closest(".login-dropdown").length === 0){ 
-                $(".login-dropdown").fadeOut(200); 
+
+                // To remove any login errors from url and refresh page
+                <?php if(isset($_GET['loginError'])){?>
+                    var urlParams = window.location.search;
+                    var modedUrlParams = urlParams.replace(/\&?loginError=(wrongEmail|wrongPassword)/g, "");
+                    modedUrlParams = modedUrlParams.replace(/\&?userEmail=[^&]*/g, "");
+
+                    location.href = window.location.pathname + modedUrlParams;
+                <?php }
+                else { ?>
+                    $(".login-dropdown").fadeOut(200); 
+                <?php } ?>
             } 
         }
         
