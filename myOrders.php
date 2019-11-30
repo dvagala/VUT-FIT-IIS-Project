@@ -21,6 +21,7 @@
         echo "<table style=\"border-collapse: collapse; margin-left: 20px\">";
         foreach($myOrders as $order){
             $price = 0.0;
+            $state = get_state($order['state']);
             echo <<<HTML
             
             <tr><td class='order-td'>Order from: {$order['r_name']}</td></tr>
@@ -70,7 +71,7 @@ HTML;
             <td class="item-td">$price €</td>
             </tr>
             <tr><td style="padding-top: 25px"></td></tr>
-            <tr style="border-bottom: 1pt solid black"><td class="item-td" style="font-weight: bold">State:  {$order['state']}</td>
+            <tr style="border-bottom: 1pt solid black"><td class="item-td" style="font-weight: bold">{$state}</td>
             </tr>
             <tr><td style="padding-top: 25px"></td></tr>
             
@@ -83,8 +84,18 @@ HTML;
     else{
         echo"<p>You have no orders at the moment!</p>";
     }
-
-
+//"placedButNotAssignedToDriver", "assignedToDriver", "BeingDelivered"
+    function get_state($state){
+        switch ($state){
+            case "placedButNotAssignedToDriver":
+                return "Your order will be assigned to driver soon";
+            case "assignedToDriver":
+                return "Your order is assigned to driver";
+            case "BeingDelivered":
+                return "Your order is being delivered";
+        }
+        return "";
+    }
     ?>
 
 </div>
