@@ -214,3 +214,4 @@ SELECT i.name,i.description,picture,price, isVegan,isGlutenFree FROM `order` O N
 
 SELECT * from `order`;
 SELECT * from person;
+

@@ -22,7 +22,21 @@ $data = $pdo->query("SELECT restaurantId, name, description, town, TIME_FORMAT(o
                 <p>{$restaurant["TIME_FORMAT(openingTime, '%H:%i')"]} - {$restaurant["TIME_FORMAT(closureTime, '%H:%i')"]}</p>
             </a>
 HTML;
-    }?>
+    }
+
+    if(isset($_SESSION["userId"])){
+        $stmt = $pdo->prepare("SELECT state FROM person WHERE personId = ?");
+        $stmt->execute([$_SESSION["userId"]]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if($user["state"] == "admin" || $user["state"] == "operator"){ ?>
+        <a id="add-new-restaurant-card" class="restaurantCard" href="createRestaurantPage.php">
+            <h1>+</h1>
+            <small>Add new restaurant</small>
+        </a>
+        <?php }
+    } ?>
+
     </div>
 </div>
 

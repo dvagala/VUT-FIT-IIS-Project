@@ -12,6 +12,7 @@
     border: 2px solid white;
     padding: 8px;
     margin: 5px;
+    width: 170px;
 }
 
 .main-page-container{
@@ -23,4 +24,14 @@
 
 .display-block{
     display: block;
+}
+
+#add-new-restaurant-card h1{
+    text-align: center;
+    margin-top: 20px;
+}
+
+#add-new-restaurant-card small{
+    display: block;
+    text-align: center;
 }
