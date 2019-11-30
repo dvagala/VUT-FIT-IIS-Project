@@ -3,7 +3,7 @@
 <?php
 include "header.php";
 include "dbConnect.php";
-$orders = $pdo->query("SELECT R.name as r_name,R.town as r_town,R.street as r_street,R.zip as r_zip, orderId, `order`.state as state,P.Name,P.Town,P.Street,P.ZIP,P.personId,`order`.additionalInfo, P.phoneNumber FROM `order` LEFT JOIN person D on `order`.driverId = D.personId INNER JOIN person P on `order`.dinerId = P.personId JOIN restaurant R on R.restaurantId=`order`.restaurantId where D.personId={$_SESSION['userId']}")->fetchAll(PDO::FETCH_ASSOC);
+$orders = $pdo->query("SELECT R.name as r_name,R.town as r_town,R.street as r_street,R.zip as r_zip, orderId, `order`.state as state,P.Name,P.Surname,P.Town,P.Street,P.ZIP,P.personId,`order`.additionalInfo, P.phoneNumber FROM `order` LEFT JOIN person D on `order`.driverId = D.personId INNER JOIN person P on `order`.dinerId = P.personId JOIN restaurant R on R.restaurantId=`order`.restaurantId where D.personId={$_SESSION['userId']}")->fetchAll(PDO::FETCH_ASSOC);
 print_orders($orders);
 
 if (isset($_POST['picked_up'])){
@@ -27,7 +27,7 @@ function print_orders($orders){
         <table class="restaurant-table">
             <tr><td class="restaurant-td">{$order['r_name']}</td></tr>
             <tr><td style="border-bottom: 1px dotted teal;">Address: {$order['r_town']}, {$order['r_street']}, {$order['r_zip']}</td></tr>
-            <tr><td class="order-td">Name: {$order['Name']}</td></tr>
+            <tr><td class="order-td">Name: {$order['Name']} {$order['Surname']}</td></tr>
             <tr><td class="order-td">Phone: {$order['phoneNumber']}</td></tr>
             <tr><td class="order-td">At: {$order['Town']}, {$order['Street']}, {$order['ZIP']}</td></tr>
             <tr><td class="info-td">Info: {$order['additionalInfo']}</td></tr>

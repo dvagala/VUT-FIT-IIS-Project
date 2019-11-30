@@ -6,8 +6,8 @@ include "dbConnect.php";
 
 
 
-$orders = $pdo->query("SELECT orderId,O.state,Name FROM `order` O LEFT JOIN person on driverId = personId")->fetchAll(PDO::FETCH_ASSOC);
-$drivers = $pdo->query("SELECT personId,Name, COUNT(orderId) as pocet FROM person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver' group by personId,Name order by Count(orderId)
+$orders = $pdo->query("SELECT orderId,O.state,Name,Surname FROM `order` O LEFT JOIN person on driverId = personId")->fetchAll(PDO::FETCH_ASSOC);
+$drivers = $pdo->query("SELECT personId,Name,Surname, COUNT(orderId) as pocet FROM person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver' group by personId,Name,Surname order by Count(orderId)
 ")->fetchAll(PDO::FETCH_ASSOC);
 
 print_orders_and_drivers($orders,$drivers);
@@ -55,10 +55,14 @@ function print_order($order,$drivers,$assigned){
             
             <tr>
                 <td class="person-td">ID: $order_id</td>
-                <td class="person-td">State: {$order['state']}</td>
+                
 HTML;
+                if(!$assigned){
+                    echo"<td class=\"person-td\">State: {$order['state']}</td>";
+                }
                 if($assigned){
-                echo "<td class=\"person-td\">Assigned to: {$order['Name']}</td>";
+
+                echo "<td class=\"person-td\">Assigned to: {$order['Name']} {$order['Surname']}</td>";
                 }
 echo <<<HTML
 
@@ -85,7 +89,7 @@ function print_drivers_options($drivers,$order_id){
     foreach ($drivers as $driver) {
         $person_id = $driver['personId'];
         echo <<<HTML
-            <option value="driver_{$order_id}_$person_id">{$driver['Name']} {$driver['pocet']}</option>
+            <option value="driver_{$order_id}_$person_id">{$driver['Name']}{$driver['Surname']} {$driver['pocet']}</option>
 HTML;
 
     }

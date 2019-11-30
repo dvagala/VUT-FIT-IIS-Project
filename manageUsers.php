@@ -13,7 +13,7 @@ echo <<<HTML
 
 HTML;
 if(!isset($_POST['filter'])){
-    $data = $pdo->query("SELECT personId,Name,mail,state FROM person")->fetchAll(PDO::FETCH_ASSOC);
+    $data = $pdo->query("SELECT personId,Name,Surname,mail,state FROM person")->fetchAll(PDO::FETCH_ASSOC);
     print_Persons($data);
 
 }
@@ -25,7 +25,7 @@ if(isset($_POST['submit']) && $_POST['ChangeRole']!=''){
 }
 
 if(isset($_POST['filter'])){
-    $data = $pdo->query("SELECT personId,Name,mail,state FROM person")->fetchAll(PDO::FETCH_ASSOC);
+    $data = $pdo->query("SELECT personId,Name,Surname,mail,state FROM person")->fetchAll(PDO::FETCH_ASSOC);
     $final_data = [];
     if($_POST['Role']=="All" and $_POST['nameLookup']=='' and $_POST['idLookup']==''){
 
@@ -46,7 +46,7 @@ if(isset($_POST['filter'])){
                 $role_push = true;
             }
             if($_POST['nameLookup']!=''){
-                if(strpos($search_row["Name"],strtolower($_POST['nameLookup'])) !== false){
+                if(strpos($search_row["Name"],strtolower($_POST['nameLookup'])) !== false || strpos($search_row["Surname"],strtolower($_POST['nameLookup'])) !== false ){
                    $name_push = true;
                 }
             }
@@ -108,7 +108,7 @@ HTML;
             
             <tr>
                 <td class="person-td">ID: $id</td>
-                <td class="person-td">Name: {$person['Name']}</td>
+                <td class="person-td">Name: {$person['Name']} {$person['Surname']}</td>
                 <td class="person-td">Mail: {$person['mail']}</td>
                 <td class="person-td">Role: {$person['state']}</td>
                 <td class="person-td">
