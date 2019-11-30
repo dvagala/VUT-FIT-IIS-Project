@@ -14,7 +14,7 @@ print_orders_and_drivers($orders,$drivers);
 
 if(isset($_POST['submit']) && $_POST['AssignDriver']!=''){
     $ids = explode('_',$_POST['AssignDriver']);// $ids[1] =orderId, $ids[2] = driver_Id
-    $pdo->query("UPDATE `order` SET state='confirmed' WHERE orderId=$ids[1]");
+    $pdo->query("UPDATE `order` SET state='assignedToDriver' WHERE orderId=$ids[1]");
     $pdo->query("UPDATE `order` SET driverId=$ids[2] WHERE orderId=$ids[1]");
     echo "<meta http-equiv='refresh' content='0'>";
 
@@ -26,7 +26,7 @@ function print_orders_and_drivers($orders,$drivers){
     echo "<table class=\"person-table\"> ";
     $unnasigned = [];
     foreach ($orders as $order) {
-        if ($order['state']=='unconfirmed'){
+        if ($order['state']=='placedButNotAssignedToDriver'){
             print_order($order,$drivers,false);
         }
         else{

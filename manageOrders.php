@@ -7,7 +7,7 @@ $orders = $pdo->query("SELECT R.name as r_name,R.town as r_town,R.street as r_st
 print_orders($orders);
 
 if (isset($_POST['picked_up'])){
-    $pdo->query("UPDATE `order` SET state='delivery' WHERE orderId={$_POST['orderId']}");
+    $pdo->query("UPDATE `order` SET state='BeingDelivered' WHERE orderId={$_POST['orderId']}");
     echo "<meta http-equiv='refresh' content='0'>";
 }
 if (isset($_POST['delivered'])){
@@ -35,7 +35,7 @@ function print_orders($orders){
                 <tr>
                 <td class="button-td"> <input type="hidden" name="orderId" value=$id>
 HTML;
-        if($order['state'] == 'confirmed'){
+        if($order['state'] == 'assignedToDriver'){
             echo "<input id=$id type=\"submit\" name=\"picked_up\" value=\"Picked up\"></td>";
         }
         else{
