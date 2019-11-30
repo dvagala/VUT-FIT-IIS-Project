@@ -69,7 +69,7 @@
                             $state = $pdo->query("SELECT state FROM person WHERE personId={$_SESSION['userId']}")->fetchAll(PDO::FETCH_ASSOC);
                             $state = $state[0]['state'];?>
 
-                            <li><a href="">My profile</a></li>
+                            <li><a href="myProfile.php">My profile</a></li>
                             <?php if($state=='driver' or $state=='admin'){?>
                             <li><a href="manageOrders.php">Manage orders</a></li>
                             <?php }if($state=='operator' or $state=='admin'){?>
