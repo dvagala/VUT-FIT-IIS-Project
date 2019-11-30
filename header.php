@@ -63,7 +63,7 @@
                 </div>
                 <div class="menu-dropdown">
                     <ul>
-                        <li><a href="">My orders</a></li>
+                        <li><a href="myOrders.php">My orders</a></li>
                         <?php if(isset($_SESSION["userId"])){
                             include "dbConnect.php";
                             $state = $pdo->query("SELECT state FROM person WHERE personId={$_SESSION['userId']}")->fetchAll(PDO::FETCH_ASSOC);
