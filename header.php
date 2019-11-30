@@ -25,17 +25,7 @@
             if(!isset($_COOKIE["userId"]) && !isset($_SESSION["userId"])){
                 $pdo->query("INSERT INTO person (state) VALUES (\"unregistered\");");
                 setcookie("userId", $pdo->lastInsertId(), time() + (10 * 365 * 24 * 60 * 60));
-            }
-            
-            if(isset($_COOKIE["userId"])){
-                echo "cockie: ".$_COOKIE["userId"];
-            }
-
-            if(isset($_SESSION["userId"])){
-                echo "session: ".$_SESSION["userId"];
-            }
-
-            ?>
+            } ?>
 
             <div class="header-nav">
                 <?php if(!isset($_SESSION["userId"])){?>
@@ -94,8 +84,6 @@
         </div>
     </div>
 </body>
-
-
 
 <script>
 

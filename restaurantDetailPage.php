@@ -1,8 +1,6 @@
 
 <link rel="stylesheet" type="text/css" href="styles/restaurantDetailPageStyle.css">
 
-
-
 <?php
 
 include "header.php";

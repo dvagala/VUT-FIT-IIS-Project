@@ -3,7 +3,7 @@
 include "header.php";
 
 if(empty($_POST["userName"]) || empty($_POST["userSurname"]) || empty($_POST["userTown"]) || empty($_POST["userStreet"]) || empty($_POST["userZIP"]) || empty($_POST["userPhoneNumber"]) || !isset($_POST["additionalInfo"]) || !isset($_SESSION["restaurantId"]) || !isset($_SESSION["items"])){
-    header("location: checkoutPage.php?checkoutError");      
+    header("location: index.php?popUp=error");
     return;
 }
 
@@ -13,7 +13,7 @@ if(isset($_SESSION["userId"])){
 else if(isset($_COOKIE["userId"])){
     $userId = $_COOKIE["userId"];
 }else{
-    header("location: checkoutPage.php?checkoutError");      
+    header("location: index.php?popUp=error");
     return;    
 }
 
@@ -34,8 +34,7 @@ foreach ($_SESSION["items"] as $itemId) {
 unset($_SESSION["items"]);
 unset($_SESSION["restaurantId"]);
 
-echo "Order succesfully placed";
-
+header("location: index.php?popUp=placedOrderSuccess");
 
 return;
 

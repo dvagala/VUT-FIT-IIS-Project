@@ -29,5 +29,5 @@
         $_SESSION["userId"] = $pdo->lastInsertId();
     }
 
-    header("location: index.php");
+    header("location: index.php?popUp=signUpSuccess");
 ?>

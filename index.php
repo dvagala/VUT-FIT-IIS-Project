@@ -1,7 +1,9 @@
 <?php
+include "overlayPopup.php";
 
 include "header.php";
 include "dbConnect.php";
+
 
 $data = $pdo->query("SELECT restaurantId, name, description, town, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i') FROM restaurant")->fetchAll(PDO::FETCH_ASSOC);
 ?>

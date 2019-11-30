@@ -44,7 +44,7 @@ if(isset($_SESSION["userId"])){
         <table>
             <tr>
                 <td><label type="text" >Name</input></td>
-                <td><input type="text" required value=
+                <td><input type="text" value=
                 <?php echo "\"";
                     if(isset($userData["Name"])) {
                         echo $userData["Name"];
