@@ -19,8 +19,20 @@ echo <<<HTML
     <p>{$restaurant["street"]}, {$restaurant["town"]}, {$restaurant["zip"]}</p>
     <p>{$restaurant["phoneNumber"]}</p>
     <p>{$restaurant["TIME_FORMAT(openingTime, '%H:%i')"]} - {$restaurant["TIME_FORMAT(closureTime, '%H:%i')"]}</p>
-
 HTML;
+
+if(isset($_SESSION["userId"])){
+    $stmt = $pdo->prepare("SELECT state FROM person WHERE personId = ?");
+    $stmt->execute([$_SESSION["userId"]]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if($user["state"] == "admin" || $user["state"] == "operator"){ ?>
+    <form action="editRestaurantPage.php" method="get">
+        <input type="hidden" name="restaurantId" value=<?php echo "\"".$restaurantId."\""; ?>>
+        <button>Edit restaurant details</button>
+    </form>
+    <?php }
+}
 
 
 ?><table class="items-table"><?php

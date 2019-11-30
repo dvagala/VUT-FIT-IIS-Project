@@ -1,6 +1,5 @@
 <?php
     include "dbConnect.php";
-
     session_start();
 
     if(empty($_POST["userName"]) || empty($_POST["userSurname"]) || empty($_POST["userTown"]) || empty($_POST["userStreet"]) || empty($_POST["userZIP"]) || empty($_POST["userPhoneNumber"]) || empty($_POST["userEmail"]) || empty($_POST["userPassword"])){

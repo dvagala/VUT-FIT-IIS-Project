@@ -204,3 +204,5 @@ SELECT orderId,O.state,Name FROM `order` O LEFT JOIN person on driverId = person
 SELECT R.name as r_name,R.town as r_town,R.street as r_street,orderId,P.Name,P.Town,P.Street,P.personId FROM `order` LEFT JOIN person D on `order`.driverId = D.personId INNER JOIN person P on `order`.dinerId = P.personId JOIN restaurant R on R.restaurantId=`order`.restaurantId where D.personId=14;
 
 update person set state = "admin" where mail = "w@w";
+
+UPDATE restaurant SET name = "smth", description = "a", town = "a", street = "a", zip = 12345, phoneNumber = "a", openingTime = TIME("07:00:00"), closureTime =TIME("07:00:00") WHERE restaurantId = 3;
