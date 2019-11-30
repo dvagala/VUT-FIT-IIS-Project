@@ -3,14 +3,22 @@
 <div class="main-page-container">
 <?php
     include "header.php";
+    echo"<h2>My orders:</h2><br>";
+
+    $userId = null;
     if(isset($_SESSION['userId'])) {
         $myOrders = $pdo->query("SELECT R.name as r_name,orderId,O.state FROM `order` O INNER JOIN person P on P.personId=O.dinerId LEFT JOIN restaurant R on O.restaurantId=R.restaurantId WHERE dinerId={$_SESSION['userId']}")->fetchAll(PDO::FETCH_ASSOC);
+        $userId = $_SESSION['userId'];
     }
-    if(isset($_SESSION['userId']) and !empty($myOrders)){
-        $myOrders=$pdo->query("SELECT R.name as r_name,orderId,O.state FROM `order` O INNER JOIN person P on P.personId=O.dinerId LEFT JOIN restaurant R on O.restaurantId=R.restaurantId WHERE dinerId={$_SESSION['userId']}")->fetchAll(PDO::FETCH_ASSOC);
+    else if(isset($_COOKIE['userId'])){
+        $myOrders = $pdo->query("SELECT R.name as r_name,orderId,O.state FROM `order` O INNER JOIN person P on P.personId=O.dinerId LEFT JOIN restaurant R on O.restaurantId=R.restaurantId WHERE dinerId={$_COOKIE["userId"]}")->fetchAll(PDO::FETCH_ASSOC);
+        $userId = $_COOKIE['userId'];
+    }
 
-        echo "<h2>My orders:</h2><br>
-              <table style=\"border-collapse: collapse; margin-left: 20px\">";
+
+    if($userId!=null and !empty($myOrders)){
+
+        echo "<table style=\"border-collapse: collapse; margin-left: 20px\">";
         foreach($myOrders as $order){
             $price = 0.0;
             echo <<<HTML
@@ -73,7 +81,7 @@ HTML;
         echo"</table>";
     }
     else{
-        echo"<p>No orders!</p>";
+        echo"<p>You have no orders at the moment!</p>";
     }
 
 

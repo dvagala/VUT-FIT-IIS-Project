@@ -212,4 +212,5 @@ SELECT O.orderId,O.state, SUM(price)from `order` O NATURAL JOIN orderHasItem NAT
 SELECT R.name,orderId,O.state FROM `order` O INNER JOIN person P on P.personId=O.dinerId LEFT JOIN restaurant R on O.restaurantId=R.restaurantId WHERE dinerId=10;
 SELECT i.name,i.description,picture,price, isVegan,isGlutenFree FROM `order` O NATURAL JOIN orderHasItem NATURAL JOIN item i  where orderId = 20
 
+SELECT * from `order`;
 SELECT * from person;
