@@ -61,7 +61,7 @@ CREATE TABLE `order` (
   additionalInfo TEXT,
   state ENUM("placedButNotAssignedToDriver", "assignedToDriver", "BeingDelivered"),
   dinerId INT NOT NULL,
-  driverId INT NULL,
+  driverId INT,
   restaurantId INT NOT NULL,
   FOREIGN KEY (dinerId) REFERENCES person(personId),
   FOREIGN KEY (driverId) REFERENCES person(personId),
@@ -69,9 +69,9 @@ CREATE TABLE `order` (
 );
 
 CREATE TABLE orderHasItem (
+  orderHasItemId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   orderId INT NOT NULL,
   itemId INT NOT NULL,
-  PRIMARY KEY (orderId, itemId),
   FOREIGN KEY (orderId) REFERENCES `order`(orderId),
   FOREIGN KEY (itemId) REFERENCES item(itemId)
 );
@@ -148,9 +148,6 @@ insert into `order` values (21, "Please call me 20min before delivery", "placedB
 insert into `order` values (22, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 12, null,3);
 insert into `order` values (23, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 13, null,4);
 insert into `order` values (24, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 14, null,5);
-
-insert into orderHasItem values (20, 102);
-insert into orderHasItem values (20, 104);
 
 
 -- select * from restaurant;

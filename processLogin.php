@@ -35,17 +35,9 @@
         }
         return;
     }
-    
-    if(isset($_COOKIE["userId"])){
-        $stmt = $pdo->prepare("DELETE from person WHERE personId = ?;");
-        $stmt->execute(array($_COOKIE["userId"]));
-        setcookie("userId", "", time() - 1);
-    }
 
     $_SESSION["userId"] = $person["personId"];
 
-
-    // $previousUrl = str_replace("world","Peter",$previousUrl);
 
     header("location: ".$previousUrl);
 ?>
