@@ -53,22 +53,24 @@ foreach ($itemTypes as $itemType) {
         foreach ($groupedItems as $item){
 
             echo <<<HTML
-            <tr>
-                <td>{$item["name"]}</td>
-                <td>
+                <tr >
+                    <td class="item-td" onclick="showItemDetail('{$item['itemId']}')">{$item["name"]}</td>
+                    <td>
 HTML;
-                if($item["isVegan"]){
-                    echo "Vegan";
-                }
-                echo "</td><td>";
-                if($item["isGlutenFree"]){
-                    echo "Gluten free";
-                }
-                echo <<<HTML
-                </td>
-                <td>{$item["price"]} €</td>
-                <td><button onclick="additemToShoppingCart('{$item["name"]}','{$item["price"]}','{$item["itemId"]}')">&#128722;</button></td>
-            </tr>
+                    if($item["isVegan"]){
+                        echo "Vegan";
+                    }
+                    echo "</td><td>";
+                    if($item["isGlutenFree"]){
+                        echo "Gluten free";
+                    }
+                    echo <<<HTML
+                    </td>
+                    <td>{$item["price"]} €</td>
+           
+                    <td id="btn"><button onclick="additemToShoppingCart('{$item["name"]}','{$item["price"]}','{$item["itemId"]}')">&#128722;</button></td>
+                </tr>  
+           
 HTML;
         }
     }
@@ -104,6 +106,10 @@ HTML;
 <script>
 
 itemsInShoppingCart = [];
+
+function showItemDetail(itemId){
+    location.href = "itemDetailPage.php?itemId=" + itemId;
+}
 
 function additemToShoppingCart(name, price, itemId){
     var newItem = {name:name, price:price, itemId:itemId};

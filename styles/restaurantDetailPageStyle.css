@@ -16,3 +16,11 @@
     padding-right: 15px;
 }
 
+.item-td {
+    cursor: pointer;
+}
+
+.item-td:hover{
+    background-color: lightgrey;
+}
+

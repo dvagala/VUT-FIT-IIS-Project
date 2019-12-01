@@ -161,7 +161,6 @@ insert into orderHasItem values (20, 104);
 select * from restaurant;
 select * from item;
 select * from restaurantHasItem;
-select * from itemWillBeInMenu;
 select * from orderHasItem;
 select * from `order`;
 select * from person;
@@ -194,4 +193,4 @@ insert into item values (146, "Burritos2", "lasagne decrip", "/img/lasagne.jpg",
 insert into restaurantHasItem values (4, 145);
 insert into restaurantHasItem values (4, 146);
 
-delete item, restaurantHasItem FROM item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId WHERE restaurantHasItem.restaurantId = 4;
+# delete item, restaurantHasItem FROM item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId WHERE restaurantHasItem.restaurantId = 4;

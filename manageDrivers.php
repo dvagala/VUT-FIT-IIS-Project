@@ -89,7 +89,7 @@ function print_drivers_options($drivers,$order_id){
     foreach ($drivers as $driver) {
         $person_id = $driver['personId'];
         echo <<<HTML
-            <option value="driver_{$order_id}_$person_id">{$driver['Name']}{$driver['Surname']} {$driver['pocet']}</option>
+            <option value="driver_{$order_id}_$person_id">{$driver['Name']} {$driver['Surname']} {$driver['pocet']}</option>
 HTML;
 
     }
