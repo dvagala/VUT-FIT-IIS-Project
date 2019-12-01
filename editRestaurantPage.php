@@ -5,7 +5,7 @@ include "dbConnect.php";
 
 $restaurantId = $_GET["restaurantId"];
 $stmt = $pdo->prepare("SELECT name, description, town, street, zip, phoneNumber, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i') FROM restaurant WHERE restaurantId = ?");
-$stmt->execute([$restaurantId]);
+$stmt->execute(array($restaurantId));
 $restaurant = $stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>

@@ -1,6 +1,6 @@
 <?php
-    include "dbConnect.php";
     session_start();
+    include "dbConnect.php";
 
     
     $previousUrl = basename($_SERVER['HTTP_REFERER']);
@@ -10,7 +10,7 @@
     }
 
     $stmt = $pdo->prepare("SELECT personId, hashedPassword FROM person WHERE mail = ?");
-    $stmt->execute([$_POST["userEmail"]]);
+    $stmt->execute(array($_POST["userEmail"]));
     $person = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if(empty($person)){
@@ -38,7 +38,7 @@
     
     if(isset($_COOKIE["userId"])){
         $stmt = $pdo->prepare("DELETE from person WHERE personId = ?;");
-        $stmt->execute([$_COOKIE["userId"]]);
+        $stmt->execute(array($_COOKIE["userId"]));
         setcookie("userId", "", time() - 1);
     }
 

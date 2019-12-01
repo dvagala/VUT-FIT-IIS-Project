@@ -1,8 +1,4 @@
-
-<link rel="stylesheet" type="text/css" href="styles/checkoutPageStyle.css">
-
 <?php
-
 include "header.php";
 
 $_SESSION["items"] = $_GET["items"];
@@ -10,12 +6,14 @@ $_SESSION["restaurantId"] = $_GET["restaurantId"];
 
 if(isset($_SESSION["userId"])){
     $stmt = $pdo->prepare("SELECT Name, Surname, Town, Street, ZIP, phoneNumber FROM person WHERE personId = ?");
-    $stmt->execute([intval($_SESSION["userId"])]);
+    $stmt->execute(array(intval($_SESSION["userId"])));
     $userData = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 
 ?>
+
+<link rel="stylesheet" type="text/css" href="styles/checkoutPageStyle.css">
 
 <div class="main-page-container">
     <h2>Checkout</h2>
@@ -26,7 +24,7 @@ if(isset($_SESSION["userId"])){
 
         foreach($_GET["items"] as $itemId){
             $stmt = $pdo->prepare("SELECT name, price FROM item WHERE itemId = ?");
-            $stmt->execute([intval($itemId)]);
+            $stmt->execute(array(intval($itemId)));
             $itemData = $stmt->fetch(PDO::FETCH_ASSOC);
 
             echo "<tr><td>".$itemData["name"]."</td><td>".number_format(floatval($itemData["price"]), 2, '.', '')." €</td></tr>";

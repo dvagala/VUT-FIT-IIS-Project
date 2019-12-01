@@ -1,8 +1,9 @@
+<?php
+include "header.php"; ?>
 
 <link rel="stylesheet" type="text/css" href="styles/my-orders-style.css">
 <div class="main-page-container">
-<?php
-    include "header.php";
+    <?php
     echo"<h2>My orders:</h2><br>";
 
     $userId = null;
