@@ -91,12 +91,6 @@ insert into item values (100, "Spaghetti and Meatballs", "Delicious spaghetti", 
 insert into item values (101, "lasagne", "lasagne decrip", "uploads/lasagne.jpg", 6.3, "dailyMenu", false, false);
 insert into item values (102, "chilli con carne", "lasagne decrip", "uploads/chilli.jpg", 4.4, "dailyMenu", true, false);
 
-insert into item values (116, "grilled chicken", "lasagne decrip", "uploads/chicken.jpg", 7.1, "meal", false, true);
-insert into item values (117, "salmon", "lasagne decrip", "uploads/salnom.jpg", 8.3, "meal", false, false);
-insert into item values (118, "pork", "lasagne decrip", "uploads/pork.jpg", 9.7, "meal", false, false);
-insert into item values (119, "pizza", "lasagne decrip", "uploads/pizza.jpg", 5.4, "meal", false, true);
-
-
 insert into item values (104, "spaghetti", "lasagne decrip", "uploads/spaghetiiplain.jpg", 3.4, "sidedish", false, false);
 insert into item values (105, "rice", "lasagne decrip", "uploads/rice.jpg", 2.7, "sidedish", false, false);
 insert into item values (106, "mashed potatoes", "lasagne decrip", "uploads/default.jpg", 3.6, "sidedish", false, false);
@@ -112,13 +106,15 @@ insert into item values (113, "Beer", "lasagne decrip", "uploads/default.jpg", 3
 insert into item values (114, "Wine", "lasagne decrip", "uploads/default.jpg", 1.6, "beverage", false, false);
 insert into item values (115, "Soda", "lasagne decrip", "uploads/default.jpg", 0.5, "beverage", false, false);
 
-
+insert into item values (116, "grilled chicken", "lasagne decrip", "uploads/chicken.jpg", 7.1, "meal", false, true);
+insert into item values (117, "salmon", "lasagne decrip", "uploads/salnom.jpg", 8.3, "meal", false, false);
+insert into item values (118, "pork", "lasagne decrip", "uploads/pork.jpg", 9.7, "meal", false, false);
+insert into item values (119, "pizza", "lasagne decrip", "uploads/pizza.jpg", 5.4, "meal", false, true);
 
 
 insert into restaurantHasItem values (1, 100);
 insert into restaurantHasItem values (1, 101);
 insert into restaurantHasItem values (1, 102);
-insert into restaurantHasItem values (1, 103);
 
 insert into restaurantHasItem values (1, 104);
 insert into restaurantHasItem values (1, 105);
@@ -154,44 +150,42 @@ insert into `order` values (23, "Please call me 20min before delivery", "placedB
 insert into `order` values (24, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 14, null,5);
 
 insert into orderHasItem values (20, 102);
-insert into orderHasItem values (20, 103);
 insert into orderHasItem values (20, 104);
 
 
-select * from restaurant;
-select * from item;
-select * from restaurantHasItem;
-select * from itemWillBeInMenu;
-select * from orderHasItem;
-select * from `order`;
-select * from person;
+-- select * from restaurant;
+-- select * from item;
+-- select * from restaurantHasItem;
+-- select * from orderHasItem;
+-- select * from `order`;
+-- select * from person;
 
-select * from item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId
-where restaurantHasItem.restaurantId = 1 and item.type = "dailyMenu";
+-- select * from item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId
+-- where restaurantHasItem.restaurantId = 1 and item.type = "dailyMenu";
 
-SELECT personId,Name, COUNT(orderId) as pocet FROM person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver' group by personId,Name order by Count(orderId);
+-- SELECT personId,Name, COUNT(orderId) as pocet FROM person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver' group by personId,Name order by Count(orderId);
 
-SELECT DISTINCT personId,Name, orderId from person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver';
+-- SELECT DISTINCT personId,Name, orderId from person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver';
 
-SELECT orderId,O.state,Name FROM `order` O LEFT JOIN person on driverId = personId;
+-- SELECT orderId,O.state,Name FROM `order` O LEFT JOIN person on driverId = personId;
 
-SELECT R.name as r_name,R.town as r_town,R.street as r_street,orderId,P.Name,P.Town,P.Street,P.personId FROM `order` LEFT JOIN person D on `order`.driverId = D.personId INNER JOIN person P on `order`.dinerId = P.personId JOIN restaurant R on R.restaurantId=`order`.restaurantId where D.personId=14;
+-- SELECT R.name as r_name,R.town as r_town,R.street as r_street,orderId,P.Name,P.Town,P.Street,P.personId FROM `order` LEFT JOIN person D on `order`.driverId = D.personId INNER JOIN person P on `order`.dinerId = P.personId JOIN restaurant R on R.restaurantId=`order`.restaurantId where D.personId=14;
 
-update person set state = "admin" where mail = "w@w";
+-- update person set state = "admin" where mail = "w@w";
 
-UPDATE restaurant SET name = "smth", description = "a", town = "a", street = "a", zip = 12345, phoneNumber = "a", openingTime = TIME("07:00:00"), closureTime =TIME("07:00:00") WHERE restaurantId = 3;
+-- UPDATE restaurant SET name = "smth", description = "a", town = "a", street = "a", zip = 12345, phoneNumber = "a", openingTime = TIME("07:00:00"), closureTime =TIME("07:00:00") WHERE restaurantId = 3;
 
 
-SELECT O.orderId,O.state, SUM(price)from `order` O NATURAL JOIN orderHasItem NATURAL JOIN item GROUP BY orderId,state;
-SELECT R.name,orderId,O.state FROM `order` O INNER JOIN person P on P.personId=O.dinerId LEFT JOIN restaurant R on O.restaurantId=R.restaurantId WHERE dinerId=10;
-SELECT i.name,i.description,picture,price, isVegan,isGlutenFree FROM `order` O NATURAL JOIN orderHasItem NATURAL JOIN item i  where orderId = 20
+-- SELECT O.orderId,O.state, SUM(price)from `order` O NATURAL JOIN orderHasItem NATURAL JOIN item GROUP BY orderId,state;
+-- SELECT R.name,orderId,O.state FROM `order` O INNER JOIN person P on P.personId=O.dinerId LEFT JOIN restaurant R on O.restaurantId=R.restaurantId WHERE dinerId=10;
+-- SELECT i.name,i.description,picture,price, isVegan,isGlutenFree FROM `order` O NATURAL JOIN orderHasItem NATURAL JOIN item i  where orderId = 20
 
-SELECT * from `order`;
-SELECT * from person;
+-- SELECT * from `order`;
+-- SELECT * from person;
 
-insert into item values (145, "Burritos", "lasagne decrip", "/img/lasagne.jpg", 7.9, "dailyMenu", true, false);
-insert into item values (146, "Burritos2", "lasagne decrip", "/img/lasagne.jpg", 7.9, "dailyMenu", true, false);
-insert into restaurantHasItem values (4, 145);
-insert into restaurantHasItem values (4, 146);
+-- insert into item values (145, "Burritos", "lasagne decrip", "/img/lasagne.jpg", 7.9, "dailyMenu", true, false);
+-- insert into item values (146, "Burritos2", "lasagne decrip", "/img/lasagne.jpg", 7.9, "dailyMenu", true, false);
+-- insert into restaurantHasItem values (4, 145);
+-- insert into restaurantHasItem values (4, 146);
 
-delete item, restaurantHasItem FROM item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId WHERE restaurantHasItem.restaurantId = 4;
+-- delete item, restaurantHasItem FROM item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId WHERE restaurantHasItem.restaurantId = 4;
