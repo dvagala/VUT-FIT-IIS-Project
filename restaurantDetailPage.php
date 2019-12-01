@@ -8,6 +8,8 @@ $restaurantId = $_GET["restaurantId"];
 $stmt = $pdo->prepare("SELECT name, description, town, street, zip, phoneNumber, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i') FROM restaurant WHERE restaurantId = ?");
 $stmt->execute(array($restaurantId));
 $restaurant = $stmt->fetch(PDO::FETCH_ASSOC);
+$vegan = false;
+$glutenFree=false;
 
 echo <<<HTML
 <div class="main-page-container">
@@ -33,7 +35,31 @@ if(isset($_SESSION["userId"])){
 }
 
 
-?><table class="items-table"><?php
+?>
+<br><table class="items-table" >
+    <form action="#" method="post">
+    <tr>
+        <td ><label style="font-weight: bold">Filter by:</label></td>
+        <td><label>Vegan</label><input type="checkbox" name="isVegan"></td>
+        <td><label>GlutenFree</label><input type="checkbox" name="isGlutenFree"></td>
+        <td></td><td><input type="submit" name="filter" value="Filter"></td>
+    </tr>
+    </form>
+    <?php
+if(isset($_POST['filter'])){
+    if(isset($_POST['isVegan'])){
+        $vegan=true;
+    }
+    else{
+        $vegan = false;
+    }
+    if(isset($_POST['isGlutenFree'])){
+        $glutenFree = true;
+    }
+    else{
+        $glutenFree = false;
+    }
+}
 
 $itemTypes = array("dailyMenu", "meal","sidedish", "sauce", "beverage");
 
@@ -50,7 +76,16 @@ foreach ($itemTypes as $itemType) {
         }
 
         foreach ($groupedItems as $item){
-
+            if($vegan){
+                if(!$item['isVegan']){
+                    break;
+                }
+            }
+            if($glutenFree){
+                if(!$item['isGlutenFree']){
+                    break;
+                }
+            }
             echo <<<HTML
                 <tr >
                     <td class="item-td" onclick="showItemDetail('{$item['itemId']}')">{$item["name"]}</td>
