@@ -1,3 +1,12 @@
+<?php 
+session_start(); 
+
+include "dbConnect.php";
+
+if(!isset($_COOKIE["userId"]) && !isset($_SESSION["userId"])){
+    $pdo->query("INSERT INTO person (state) VALUES (\"unregistered\");");
+    setcookie("userId", $pdo->lastInsertId(), time() + (10 * 365 * 24 * 60 * 60));
+} ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,24 +17,19 @@
     <link rel="stylesheet" href="styles/header-style.css">
     <link rel="stylesheet" type="text/css" href="styles/style.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"> 
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
     <script src="vendor/jquery-3.4.1.js"></script>
 
     <title>Document</title>
 </head>
 <body>
+
     <div class="main-page-container">
         <div class="main-header">
             <p><a href="index.php">Food delivery</a></p>
 
-            <?php session_start();
 
-            include "dbConnect.php";
-
-            if(!isset($_COOKIE["userId"]) && !isset($_SESSION["userId"])){
-                $pdo->query("INSERT INTO person (state) VALUES (\"unregistered\");");
-                setcookie("userId", $pdo->lastInsertId(), time() + (10 * 365 * 24 * 60 * 60));
-            } ?>
 
             <div class="header-nav">
                 <?php if(!isset($_SESSION["userId"])){?>

@@ -1,8 +1,12 @@
+<?php 
+include "header.php";
+include "dbConnect.php"; ?>
+
 <link rel="stylesheet" href="styles/manage-orders-style.css">
 <div class="main-page-container">
+
 <?php
-include "header.php";
-include "dbConnect.php";
+
 $orders = $pdo->query("SELECT R.name as r_name,R.town as r_town,R.street as r_street,R.zip as r_zip, orderId, `order`.state as state,P.Name,P.Surname,P.Town,P.Street,P.ZIP,P.personId,`order`.additionalInfo, P.phoneNumber FROM `order` LEFT JOIN person D on `order`.driverId = D.personId INNER JOIN person P on `order`.dinerId = P.personId JOIN restaurant R on R.restaurantId=`order`.restaurantId where D.personId={$_SESSION['userId']}")->fetchAll(PDO::FETCH_ASSOC);
 print_orders($orders);
 

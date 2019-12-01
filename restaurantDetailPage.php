@@ -1,13 +1,12 @@
+<?php include "header.php"; ?>
 
 <link rel="stylesheet" type="text/css" href="styles/restaurantDetailPageStyle.css">
 
 <?php
 
-include "header.php";
-
 $restaurantId = $_GET["restaurantId"];
 $stmt = $pdo->prepare("SELECT name, description, town, street, zip, phoneNumber, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i') FROM restaurant WHERE restaurantId = ?");
-$stmt->execute([$restaurantId]);
+$stmt->execute(array($restaurantId));
 $restaurant = $stmt->fetch(PDO::FETCH_ASSOC);
 
 echo <<<HTML
@@ -22,7 +21,7 @@ HTML;
 
 if(isset($_SESSION["userId"])){
     $stmt = $pdo->prepare("SELECT state FROM person WHERE personId = ?");
-    $stmt->execute([$_SESSION["userId"]]);
+    $stmt->execute(array($_SESSION["userId"]));
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if($user["state"] == "admin" || $user["state"] == "operator"){ ?>
@@ -40,7 +39,7 @@ $itemTypes = array("dailyMenu", "meal","sidedish", "sauce", "beverage");
 
 foreach ($itemTypes as $itemType) {
     $stmt = $pdo->prepare("SELECT * from item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId where restaurantHasItem.restaurantId = ? and item.type = ?");
-    $stmt->execute([$restaurantId, $itemType]);
+    $stmt->execute(array($restaurantId, $itemType));
     $groupedItems = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 
     if(!empty($groupedItems)){
@@ -82,7 +81,7 @@ HTML;
         <tr><td></td><td>
             <form action="addNewItemPage.php" method="get">
                 <input type="hidden" name="restaurantId" value=<?php echo "\"".$restaurantId."\""; ?>>
-                <button type="submit">Add new item</button>
+                <button type="submit">Add a new item</button>
             </form>
         </td></tr>
     <?php }
@@ -99,7 +98,7 @@ HTML;
         <tr><td>Total</td><td>0.00€</td><td></td></tr>
         </table>
 
-        <button onclick="goToCheckout()" id="ckeckout-button" type="submit" disabled>Go to checkout</button>
+        <button onclick="goToCheckout()" class="btn btn-primary" id="ckeckout-button" type="submit" disabled>Go to checkout</button>
     </div>
 </div> 
 

@@ -1,8 +1,12 @@
+<?php 
+include "header.php";
+include "dbConnect.php"; ?>
+
 <link rel="stylesheet" href="styles/manage-users-style.css">
 <div class="main-page-container">
+
 <?php
-include "header.php";
-include "dbConnect.php";
+
 echo <<<HTML
 <head>
 

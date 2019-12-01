@@ -1,4 +1,3 @@
-
 <?php
 include "header.php";
 
@@ -76,7 +75,7 @@ $userData = $pdo->query("SELECT Name, Surname, Town, Street, ZIP, phoneNumber, h
                 if(isset($_POST['changeProfile'])){
                     if($userData['Name']!=$_POST['userName'] || $userData['Surname']!=$_POST['userSurname'] || $userData['Town']!=$_POST['userTown'] || $userData['Street']!=$_POST['userStreet'] || $userData['ZIP']!=$_POST['userZIP'] || $userData['phoneNumber']!=$_POST["userPhoneNumber"]){
                         $stmt = $pdo->prepare("UPDATE person SET Name = ?, Surname = ?, Town = ?, Street = ?, ZIP = ?, phoneNumber = ? WHERE personId = ?;");
-                        $stmt->execute([$_POST["userName"], $_POST["userSurname"], $_POST["userTown"], $_POST["userStreet"], intval($_POST["userZIP"]), $_POST["userPhoneNumber"], $_SESSION['userId']]);
+                        $stmt->execute(array($_POST["userName"], $_POST["userSurname"], $_POST["userTown"], $_POST["userStreet"], intval($_POST["userZIP"]), $_POST["userPhoneNumber"], $_SESSION['userId']));
                         echo "<meta http-equiv='refresh' content='0'>";
                     }
                 }
@@ -106,7 +105,7 @@ $userData = $pdo->query("SELECT Name, Surname, Town, Street, ZIP, phoneNumber, h
                     if(isset($_POST['newUserPassword'])){
                         if($_POST['newUserPasswordAgain'] == $_POST['newUserPassword']){
                             $stmt = $pdo->prepare("UPDATE person SET hashedPassword = ? WHERE personId= ? ");
-                            $stmt->execute([password_hash($_POST["newUserPassword"],PASSWORD_DEFAULT),$_SESSION["userId"]]);
+                            $stmt->execute(array(password_hash($_POST["newUserPassword"],PASSWORD_DEFAULT),$_SESSION["userId"]));
                             echo"<tr style='text-align: right'><td></td><td>Passwords changed Successfully!</td></tr>";
                         }
                         else{

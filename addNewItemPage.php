@@ -56,7 +56,7 @@
         </tr>                     
         <tr>
             <td></td>
-            <td><button type="submit">Add new item</button></td>
+            <td><button type="submit">Save</button></td>
         </tr>                               
     </table>
 </form>

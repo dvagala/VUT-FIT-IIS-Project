@@ -37,11 +37,11 @@ include "dbConnect.php";
         </tr>
         <tr>
             <td><label>Opening time</label></td>
-            <td><input type="time" step="60" name="openingTime" required placeholder="Opening time"></td>
+            <td><input type="time" step="60" name="openingTime" value="08:00" required placeholder="Opening time"></td>
         </tr>         
         <tr>
             <td><label>Closure time</label></td>
-            <td><input type="time" step="60"  name="closureTime" required placeholder="Closure time"></td>
+            <td><input type="time" step="60"  name="closureTime"  value="18:00"  required placeholder="Closure time"></td>
         </tr>    
         <tr>
             <td></td>

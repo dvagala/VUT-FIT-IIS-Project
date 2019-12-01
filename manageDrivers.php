@@ -1,10 +1,11 @@
+<?php 
+include "header.php";
+include "dbConnect.php"; ?>
+
 <link rel="stylesheet" href="styles/manage-users-style.css">
 <div class="main-page-container">
+
 <?php
-include "header.php";
-include "dbConnect.php";
-
-
 
 $orders = $pdo->query("SELECT orderId,O.state,Name,Surname FROM `order` O LEFT JOIN person on driverId = personId")->fetchAll(PDO::FETCH_ASSOC);
 $drivers = $pdo->query("SELECT personId,Name,Surname, COUNT(orderId) as pocet FROM person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver' group by personId,Name,Surname order by Count(orderId)
