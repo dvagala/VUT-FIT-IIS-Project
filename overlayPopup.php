@@ -48,7 +48,13 @@ if(isset($_GET["popUp"])){ ?>
                     <h3>An error happend!</h3>
                     <small>Sorry</small>
                 </div>
-            <?php } ?>
+            <?php }
+            else if($_GET["popUp"] == "insufficientPermissions"){ ?>
+                <div id="popupText">
+                    <h3>Insufficient permissions!</h3>
+                    <small>Sorry about that...</small>
+                </div>
+            <?php }?>
             
             </div>
         </div>

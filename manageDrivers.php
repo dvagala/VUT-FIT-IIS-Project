@@ -7,6 +7,12 @@ include "dbConnect.php"; ?>
 
 <?php
 
+
+if($globalUserState!='admin' and $globalUserState!='operator'){
+    header("location: index.php?popUp=insufficientPermissions");
+    return;
+}
+
 $orders = $pdo->query("SELECT orderId,O.state,Name,Surname FROM `order` O LEFT JOIN person on driverId = personId")->fetchAll(PDO::FETCH_ASSOC);
 $drivers = $pdo->query("SELECT personId,Name,Surname, COUNT(orderId) as pocet FROM person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver' group by personId,Name,Surname order by Count(orderId)
 ")->fetchAll(PDO::FETCH_ASSOC);

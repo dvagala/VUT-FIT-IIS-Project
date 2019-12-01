@@ -2,11 +2,17 @@
 session_start(); 
 
 include "dbConnect.php";
+$globalUserState = 'unregistered';
 
 if(!isset($_COOKIE["userId"]) && !isset($_SESSION["userId"])){
     $pdo->query("INSERT INTO person (state) VALUES (\"unregistered\");");
     setcookie("userId", $pdo->lastInsertId(), time() + (10 * 365 * 24 * 60 * 60));
-} ?>
+}
+if(isset($_SESSION['userId'])){
+    $globalUserState = $pdo->query("SELECT state FROM person WHERE personId={$_SESSION['userId']}")->fetchAll(PDO::FETCH_ASSOC);
+    $globalUserState = $globalUserState[0]['state'];
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">

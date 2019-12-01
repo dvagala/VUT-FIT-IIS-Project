@@ -2,7 +2,10 @@
 
 include "header.php";
 include "dbConnect.php";
-
+if($globalUserState!='admin' and $globalUserState!='operator'){
+    header("location: index.php?popUp=insufficientPermissions");
+    return;
+}
 ?>
 
 <div class="main-page-container">

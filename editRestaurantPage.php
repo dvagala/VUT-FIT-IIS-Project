@@ -2,7 +2,10 @@
 
 include "header.php";
 include "dbConnect.php";
-
+if($globalUserState!='admin' and $globalUserState!='operator'){
+    header("location: index.php?popUp=insufficientPermissions");
+    return;
+}
 $restaurantId = $_GET["restaurantId"];
 $stmt = $pdo->prepare("SELECT name, description, town, street, zip, phoneNumber, TIME_FORMAT(openingTime, '%H:%i'), TIME_FORMAT(closureTime, '%H:%i') FROM restaurant WHERE restaurantId = ?");
 $stmt->execute(array($restaurantId));
