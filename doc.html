@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><link type="text/css" id="dark-mode" rel="stylesheet" href=""><style type="text/css" id="dark-mode-custom-style"></style><head>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-2">
+    <title>Projekt IIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
+<script src="doc_files/prompt.js"></script></head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>Jídelna: objednávka a rozvoz jídel</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+	<dt>Autoři</dt>
+	<dd>Dominik Vagala <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xvagal00@stud.fit.vutbr.cz">xvagal00@stud.fit.vutbr.cz</a> -
+		popis činnosti v týmu
+	</dd>
+	<dd>Jakub Vinš <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+	    <a href="mailto:xvinsj00@stud.fit.vutbr.cz">xvinsj00@stud.fit.vutbr.cz</a> -
+		popis činnosti v týmu
+	</dd>
+	<dt>URL aplikace</dt>
+	<dd><a href="http://www.stud.fit.vutbr.cz/~xvagal00/IIS">http://www.stud.fit.vutbr.cz/~xvagal00/IIS</a></dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>
+<table>
+<tbody><tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>admin</td><td>admin</td><td>Administrátor</td></tr>
+<tr><td>operator</td><td>operator</td><td>Operátor</td></tr>
+<tr><td>driver</td><td>driver</td><td>Vodič</td></tr>
+<tr><td>diner</td><td>diner</td><td>Stravník</td></tr>
+</tbody></table>
+
+<h2>Implementace</h2>
+<p>Stručná dokumentace k implementaci, která popisuje, které části
+projektu (např. PHP skripty) implementují jednotlivé případy použití.</p>
+<h4>Registrovaný uživateľ</h4>
+<p>Editácia profilu - myProfile.php</p>
+<h4>Admin</h4>
+<p>Spravuje uživateľov - manageUsers.php</p>
+<h4>Operátor</h4>
+<p>Vkladá reštaurácie - createRestaurantPage.php, processCreateRestaurant.php</p>
+<p>Spravuje reštaurácie - editRestaurantPage.php, processEditRestaurant.php, processDeleteRestaurant.php</p>
+<p>Vkladanie, úprava nových položiek - addNewItemPage.php, itemDetailPage.php</p>
+<p>Zostavuje plán vodičov - manageUsers.php</p>
+<h4>Vodič</h4>
+<p>Vybavuje objednávky - manageOrders.php</p>
+<h4>Stravník</h4>
+<p>Objednáva jedlo - restaurantDetailPage.php, processPlaceOrder.php, checkoutPage.php</p>
+<p>Sleduje stav objednávok - myOrders.php</p>
+<h4>Neregistrovaný návštevník</h4>
+<p>Sledovanie jedálneho lístku - restaurantDetailPage.php</p>
+<p>Objednanie jedla bez registrácie - checkoutPage.php</p>
+
+
+
+
+<h3>Databáze</h3>
+
+Zde vložte grafické schéma relační databáze (tabulek v databázi).
+
+<h2>Instalace</h2>
+
+Stručně popište: 
+<ul>
+<li>postup instalace na server,</li>
+<li>softwarové požadavky (verze PHP apod.),</li>
+<li>jak rozbalit, konfigurovat, inicializovat databázi, ...</li>
+</ul>
+
+<h2>Známé problémy</h2>
+<p>Zde popište, které body zadání nejsou implementovány a z jakého 
+důvodu. Např. &#8222;Z časových důvodů nebyla implementována správa 
+uživatelů.&#8221; Pomůžete tím zrychlit hodnocení, když neimplementované 
+funkce nebudeme muset dlouze hledat.</p>
+
+
+
+</body></html>
