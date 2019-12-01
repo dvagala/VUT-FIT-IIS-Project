@@ -1,7 +1,9 @@
+<?php
+include "header.php"; ?>
+
 <link rel="stylesheet" type="text/css" href="styles/my-orders-style.css">
 <div class="main-page-container">
 <?php
-include "header.php";
 
 $item = $pdo->query("SELECT * from item where itemId={$_GET['itemId']}")->fetch(PDO::FETCH_ASSOC);
 if(!empty($item)) {
@@ -157,6 +159,7 @@ HTML;
             }
             var_dump($target_file);
             move_uploaded_file($_FILES['pictureToUpload']['tmp_name'], $target_file);
+            chmod($target_file, 0744);
 
             $pdo->query("UPDATE item SET picture='$target_file' where itemId={$item['itemId']}");
             echo "<meta http-equiv='refresh' content='0'>";

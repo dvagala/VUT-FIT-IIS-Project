@@ -18,6 +18,7 @@
     }
 
     move_uploaded_file($_FILES["pictureToUpload"]["tmp_name"], $target_file);
+    chmod($target_file, 0744);
 
     $isVegan = false;
     $isGlutenFree = false;
