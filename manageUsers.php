@@ -7,16 +7,10 @@ include "dbConnect.php"; ?>
 
 <?php
 if($globalUserState!='admin'){
-    header("location: index.php?popUp=insufficientPermissions");
+    echo("<script>location.href ='http://www.stud.fit.vutbr.cz/~xvagal00/IIS/index.php?popUp=insufficientPermissions'</script>");
     return;
 }
 echo <<<HTML
-<head>
-
-<title>Manage Users</title>
-
-</head>
-
 
 HTML;
 if(!isset($_POST['filter'])){

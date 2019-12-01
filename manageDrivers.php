@@ -9,7 +9,7 @@ include "dbConnect.php"; ?>
 
 
 if($globalUserState!='admin' and $globalUserState!='operator'){
-    header("location: index.php?popUp=insufficientPermissions");
+    echo("<script>location.href ='http://www.stud.fit.vutbr.cz/~xvagal00/IIS/index.php?popUp=insufficientPermissions'</script>");
     return;
 }
 
