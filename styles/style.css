@@ -35,3 +35,8 @@
     display: block;
     text-align: center;
 }
+
+.food-delivery-title{
+    font-size: 25px;
+    font-family: "DejaVu Serif", serif;
+}
