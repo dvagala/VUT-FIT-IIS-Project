@@ -38,6 +38,10 @@
 
     $_SESSION["userId"] = $person["personId"];
 
+    // Little workaround if site is accessed without index.php in url
+    if($previousUrl == "IIS"){
+        $previousUrl = "index.php";
+    }
 
     header("location: ".$previousUrl);
 ?>
