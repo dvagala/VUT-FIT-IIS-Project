@@ -1,7 +1,7 @@
 <?php
     include "header.php";
     if($globalUserState!='admin' and $globalUserState!='operator'){
-        echo("<script>location.href ='http://www.stud.fit.vutbr.cz/~xvagal00/IIS/index.php?popUp=insufficientPermissions'</script>");
+        echo("<script>location.href ='index.php?popUp=insufficientPermissions'</script>");
         return;
     }
     ?>

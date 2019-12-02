@@ -33,10 +33,7 @@ if(isset($_SESSION['userId'])){
 
     <div class="main-page-container">
         <div class="main-header">
-            <p><a href="index.php">Food delivery</a></p>
-
-
-
+            <p ><a class="food-delivery-title" href="index.php">Food delivery</a></p>
             <div class="header-nav">
                 <?php if(!isset($_SESSION["userId"])){?>
                     <a class="login-nav-link" href="#">Login</a>

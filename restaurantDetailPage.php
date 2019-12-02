@@ -78,12 +78,12 @@ foreach ($itemTypes as $itemType) {
         foreach ($groupedItems as $item){
             if($vegan){
                 if(!$item['isVegan']){
-                    break;
+                    continue;
                 }
             }
             if($glutenFree){
                 if(!$item['isGlutenFree']){
-                    break;
+                    continue;
                 }
             }
             echo <<<HTML

@@ -7,7 +7,7 @@ include "dbConnect.php"; ?>
 
 <?php
 if($globalUserState!='admin'){
-    echo("<script>location.href ='http://www.stud.fit.vutbr.cz/~xvagal00/IIS/index.php?popUp=insufficientPermissions'</script>");
+    echo("<script>location.href ='index.php?popUp=insufficientPermissions'</script>");
     return;
 }
 echo <<<HTML
