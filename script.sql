@@ -6,9 +6,6 @@ drop table if exists restaurant;
 drop table if exists item;
 drop table if exists person;
 
--- CREATE USER 'iisUser'@'%' IDENTIFIED BY 'iisPassword';
--- # GRANT ALL PRIVILEGES ON iisDb. * TO 'iisUser'@'%';
--- # FLUSH PRIVILEGES;
 
 CREATE TABLE restaurant (
   restaurantId INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -142,48 +139,3 @@ insert into person values (12, "Admin", "adminSurname", "Jaslovske Bohunice", "A
 insert into person values (13, "Operator", "operatorSurname", "Trnava", "Skusobka", 61200, "0985456789", "operator@gmail.com", "$2y$10$yHLMJOAcCqXweWeaiU6IuuNzSGph7E7.ZX/7zcl/Rl.twKJe7Dw7K", "operator");
 insert into person values (14, "Driver", "driverSurname", "Trnava", "Johna Dopieru 26/a", 61200, "0985456789", "driver@gmail.com", "$2y$10$T3ib4zk/BCAifX7OleTRiurK1aoARJr6xHD2LgSjOJLcfQFbSyd0G", "driver");
 insert into person values (15, "Diner", "dinerSurname", "Brno", "Skacelova", 61200, "0985456789", "diner@gmail.com", "$2y$10$blyLUvZsCTITgNL3hxAXCO7j8EFa2f3R.y0iU6vV7ZsztJYEKWmx2", "diner");
-
-
-# insert into `order` values (20, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 10, null,1);
-# insert into `order` values (21, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 11, null,2);
-# insert into `order` values (22, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 12, null,3);
-# insert into `order` values (23, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 13, null,4);
-# insert into `order` values (24, "Please call me 20min before delivery", "placedButNotAssignedToDriver", 14, null,5);
-
-
--- select * from restaurant;
--- select * from item;
--- select * from restaurantHasItem;
--- select * from orderHasItem;
--- select * from `order`;
--- select * from person;
-
--- select * from item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId
--- where restaurantHasItem.restaurantId = 1 and item.type = "dailyMenu";
-
--- SELECT personId,Name, COUNT(orderId) as pocet FROM person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver' group by personId,Name order by Count(orderId);
-
--- SELECT DISTINCT personId,Name, orderId from person LEFT JOIN `order` on person.personId = `order`.driverId where person.state='driver';
-
--- SELECT orderId,O.state,Name FROM `order` O LEFT JOIN person on driverId = personId;
-
--- SELECT R.name as r_name,R.town as r_town,R.street as r_street,orderId,P.Name,P.Town,P.Street,P.personId FROM `order` LEFT JOIN person D on `order`.driverId = D.personId INNER JOIN person P on `order`.dinerId = P.personId JOIN restaurant R on R.restaurantId=`order`.restaurantId where D.personId=14;
-
--- update person set state = "admin" where mail = "w@w";
-
--- UPDATE restaurant SET name = "smth", description = "a", town = "a", street = "a", zip = 12345, phoneNumber = "a", openingTime = TIME("07:00:00"), closureTime =TIME("07:00:00") WHERE restaurantId = 3;
-
-
--- SELECT O.orderId,O.state, SUM(price)from `order` O NATURAL JOIN orderHasItem NATURAL JOIN item GROUP BY orderId,state;
--- SELECT R.name,orderId,O.state FROM `order` O INNER JOIN person P on P.personId=O.dinerId LEFT JOIN restaurant R on O.restaurantId=R.restaurantId WHERE dinerId=10;
--- SELECT i.name,i.description,picture,price, isVegan,isGlutenFree FROM `order` O NATURAL JOIN orderHasItem NATURAL JOIN item i  where orderId = 20
-
--- SELECT * from `order`;
--- SELECT * from person;
-
--- insert into item values (145, "Burritos", "lasagne decrip", "/img/lasagne.jpg", 7.9, "dailyMenu", true, false);
--- insert into item values (146, "Burritos2", "lasagne decrip", "/img/lasagne.jpg", 7.9, "dailyMenu", true, false);
--- insert into restaurantHasItem values (4, 145);
--- insert into restaurantHasItem values (4, 146);
-
--- delete item, restaurantHasItem FROM item inner join restaurantHasItem on item.itemId = restaurantHasItem.itemId WHERE restaurantHasItem.restaurantId = 4;
