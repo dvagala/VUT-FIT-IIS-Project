@@ -14,7 +14,7 @@ echo <<<HTML
 
 HTML;
 if(!isset($_POST['filter'])){
-    $data = $pdo->query("SELECT personId,Name,Surname,mail,state FROM person")->fetchAll(PDO::FETCH_ASSOC);
+    $data = $pdo->query("SELECT personId,Name,Surname,mail,state FROM person where state <> 'unregistered'")->fetchAll(PDO::FETCH_ASSOC);
     print_Persons($data);
 
 }
@@ -25,14 +25,45 @@ if(isset($_POST['submit']) && $_POST['ChangeRole']!=''){
     echo "<meta http-equiv='refresh' content='0'>";
 }
 
+if(isset($_POST['delete'])){
+
+    //Change driver to null in orders where deleted person is driver
+    $sql = "UPDATE `order` SET driverId=0 where driverId='{$_POST['userId']}'";
+    $pdo->query($sql);
+    //get all orders
+    $orders = $pdo->query("SELECT orderId FROM `order` where dinerId={$_POST['userId']}")->fetchAll(PDO::FETCH_ASSOC);
+
+    //delete everything from orderHasItem table for every order he has active, if user is going to be deleted
+    foreach($orders as $order){
+        $sql = "DELETE FROM orderHasItem WHERE orderId='{$order['orderId']}'";
+        $pdo->query($sql);
+    }
+    //delete all orders
+    $sql = "DELETE FROM `order` WHERE dinerId='{$_POST['userId']}'";
+    $pdo->query($sql);
+    //finally delete person
+    $sql = "DELETE FROM person WHERE personId='{$_POST['userId']}'";
+    $pdo->query($sql);
+    echo "<meta http-equiv='refresh' content='0'>";
+}
+
 if(isset($_POST['filter'])){
-    $data = $pdo->query("SELECT personId,Name,Surname,mail,state FROM person")->fetchAll(PDO::FETCH_ASSOC);
+
+
     $final_data = [];
+
     if($_POST['Role']=="All" and $_POST['nameLookup']=='' and $_POST['idLookup']==''){
+        $data = $pdo->query("SELECT personId,Name,Surname,mail,state FROM person where state <> 'unregistered'")->fetchAll(PDO::FETCH_ASSOC);
 
     }
     else{
+        $data = $pdo->query("SELECT personId,Name,Surname,mail,state FROM person")->fetchAll(PDO::FETCH_ASSOC);
         foreach($data as $row){
+            if($_POST['Role']!='unregistered'){
+                if($row['state']=='unregistered'){
+                    continue;
+                }
+    }
             $search_row = array_map('strtolower', $row);
             $role_push = false;
             $name_push = false;
@@ -125,6 +156,7 @@ HTML;
                     
                 </td>
                 <td class="person-td"><input type="submit" name="submit" value="Save"></td>
+                <td class="person-td"><input type="hidden" name="userId" value=$id><input style="background: red" type="submit" name="delete" value="Delete"></td>
                 </form>
             </tr>    
             

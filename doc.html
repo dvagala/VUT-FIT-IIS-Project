@@ -22,8 +22,8 @@
 		popis èinnosti v týmu
 	</dd>
 	<dd>Jakub Vin¹ <!-- Nahraïte skuteèným jménem a e-mailem autora a popisem èinnosti -->
-	    <a href="mailto:xvinsj00@stud.fit.vutbr.cz">xvinsj00@stud.fit.vutbr.cz</a> -
-		popis èinnosti v týmu
+	    <a href="mailto:xvinsj00@stud.fit.vutbr.cz">xvinsj00@stud.fit.vutbr.cz</a> - myProfile.php, manageUsers.php,itemDetailPage.php,
+		manageOrders.php, manageDrivers.php
 	</dd>
 	<dt>URL aplikace</dt>
 	<dd><a href="http://www.stud.fit.vutbr.cz/~xvagal00/IIS">http://www.stud.fit.vutbr.cz/~xvagal00/IIS</a></dd>
@@ -33,15 +33,13 @@
 <p>Uveïte prosím existující zástupce <strong>v¹ech rolí u¾ivatelù</strong>.</p>
 <table>
 <tbody><tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
-<tr><td>admin</td><td>admin</td><td>Administrátor</td></tr>
-<tr><td>operator</td><td>operator</td><td>Operátor</td></tr>
-<tr><td>driver</td><td>driver</td><td>Vodiè</td></tr>
-<tr><td>diner</td><td>diner</td><td>Stravník</td></tr>
+<tr><td>admin@gmail.com</td><td>admin</td><td>Administrátor</td></tr>
+<tr><td>operator@gmail.com</td><td>operator</td><td>Operátor</td></tr>
+<tr><td>driver@gmail.com</td><td>driver</td><td>Vodiè</td></tr>
+<tr><td>diner@gmail.com</td><td>diner</td><td>Stravník</td></tr>
 </tbody></table>
 
 <h2>Implementace</h2>
-<p>Struèná dokumentace k implementaci, která popisuje, které èásti
-projektu (napø. PHP skripty) implementují jednotlivé pøípady pou¾ití.</p>
 <h4>Registrovaný u¾ivateµ</h4>
 <p>Editácia profilu - myProfile.php</p>
 <h4>Admin</h4>
@@ -50,7 +48,7 @@ projektu (napø. PHP skripty) implementují jednotlivé pøípady pou¾ití.</p>
 <p>Vkladá re¹taurácie - createRestaurantPage.php, processCreateRestaurant.php</p>
 <p>Spravuje re¹taurácie - editRestaurantPage.php, processEditRestaurant.php, processDeleteRestaurant.php</p>
 <p>Vkladanie, úprava nových polo¾iek - addNewItemPage.php, itemDetailPage.php</p>
-<p>Zostavuje plán vodièov - manageUsers.php</p>
+<p>Zostavuje plán vodièov - manageDrivers.php</p>
 <h4>Vodiè</h4>
 <p>Vybavuje objednávky - manageOrders.php</p>
 <h4>Stravník</h4>
@@ -58,6 +56,7 @@ projektu (napø. PHP skripty) implementují jednotlivé pøípady pou¾ití.</p>
 <p>Sleduje stav objednávok - myOrders.php</p>
 <h4>Neregistrovaný náv¹tevník</h4>
 <p>Sledovanie jedálneho lístku - restaurantDetailPage.php</p>
+<p>Má mo¾nos» filtrova» polo¾ky podµa rôznych vlastností - restaurantDetailPage.php</p>
 <p>Objednanie jedla bez registrácie - checkoutPage.php</p>
 
 
@@ -65,7 +64,7 @@ projektu (napø. PHP skripty) implementují jednotlivé pøípady pou¾ití.</p>
 
 <h3>Databáze</h3>
 
-Zde vlo¾te grafické schéma relaèní databáze (tabulek v databázi).
+<p><img style="width:700px;height:500px;" src="iisDb.png" alt="iisDb"></p>
 
 <h2>Instalace</h2>
 
@@ -77,10 +76,7 @@ Struènì popi¹te:
 </ul>
 
 <h2>Známé problémy</h2>
-<p>Zde popi¹te, které body zadání nejsou implementovány a z jakého 
-dùvodu. Napø. &#8222;Z èasových dùvodù nebyla implementována správa 
-u¾ivatelù.&#8221; Pomù¾ete tím zrychlit hodnocení, kdy¾ neimplementované 
-funkce nebudeme muset dlouze hledat.</p>
+<p>Veríme ¾e ¾iadne.</p>
 
 
 
